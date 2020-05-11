@@ -1,0 +1,8 @@
+.place__title-like {
+  background-image: url(./like.svg);
+  background-position: center;
+  width: 21px;
+  height: 18px;
+  /*background-color: #000;*/
+
+}

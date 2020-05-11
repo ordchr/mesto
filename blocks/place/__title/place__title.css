@@ -1,0 +1,8 @@
+.place__title {
+  width: 246px;
+  max-height: 23px;
+  margin: 25px 15px 31px 21px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

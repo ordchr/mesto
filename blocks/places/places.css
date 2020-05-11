@@ -1,0 +1,8 @@
+.places {
+  margin-top: 47px;
+  display: grid;
+  grid-template-columns: repeat(3, 282px); 
+  grid-gap: 21px 18px;
+  grid-template-rows: repeat(2, 361px); 
+  justify-content: flex-start;
+}
