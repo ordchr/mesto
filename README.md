@@ -2,6 +2,8 @@
 
 ### Обзор
 
+Текущая версия проекта доступна по адресу: [https://ordchr.github.io/mesto/](https://ordchr.github.io/mesto/)
+
 * Figma
 * Картинки
 
