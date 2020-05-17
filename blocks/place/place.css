@@ -7,6 +7,12 @@
   color: #000;
   background-color: #fff;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /*width: 282/12.8*1vw;*/
+  /*width: 100%;*/
+  /*height: 100%;*/
   /*width: 282px;*/
   /*min-height: 361px;*/
 }
