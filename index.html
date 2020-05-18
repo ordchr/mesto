@@ -12,74 +12,74 @@
 
   </header>
   <section class="profile page__section">
-    <img class="profile__photo" src="./images/Jak-Iv-Kusto.jpg" alt="Жак-Ив Кусто">
+    <img class="profile__photo" src="./images/Jak-Iv-Kusto.jpg" alt="Аватар пользователя">
     <div class="profile__info">
       <div class="profile__title">
         <h1 class="profile__full-name">Жак-Ив Кусто</h1>
-        <a class="profile__edit-button" href="#"></a>
+        <button type="button" class="profile__edit-button"></button>
       </div>
       <p class="profile__profession">Исследователь океана</p>
     </div>
-    <a href="#" class="profile__add-button"></a>
+    <button type="button" class="profile__add-button"></button>
   </section>
 
   <section class="places page__section">
     <div class="place">
-      <img src="./images/places/Karachaevsk.png" class="place__image" alt="Карачаевск">
+      <img src="./images/places/karachaevsk.jpg" class="place__image" alt="Карачаевск">
       <div class="place__title">
         <h3 class="place__title-text">Карачаевск</h3>
-        <a class="place__title-like" href="#"></a>
+        <button type="button" class="place__title-like"></button>
       </div>
     </div>
     <div class="place">
-      <img src="./images/places/Elbrus.png" class="place__image" alt="Гора Эльбрус">
+      <img src="./images/places/elbrus.jpg" class="place__image" alt="Гора Эльбрус">
       <div class="place__title">
         <h3 class="place__title-text">Гора Эльбрус</h3>
-        <a class="place__title-like" href="#"></a>
+        <button type="button" class="place__title-like"></button>
       </div>
     </div>
     <div class="place">
-      <img src="./images/places/Dombai.png" class="place__image" alt="Домбай">
+      <img src="./images/places/dombai.jpg" class="place__image" alt="Домбай">
       <div class="place__title">
         <h3 class="place__title-text">Домбай</h3>
-        <a class="place__title-like" href="#"></a>
+        <button type="button" class="place__title-like"></button>
       </div>
     </div>
     <div class="place">
-      <img src="./images/places/Elbrus.png" class="place__image" alt="Гора Эльбрус">
+      <img src="./images/places/elbrus.jpg" class="place__image" alt="Гора Эльбрус">
       <div class="place__title">
         <h3 class="place__title-text">Гора Эльбрус</h3>
-        <a class="place__title-like" href="#"></a>
+        <button type="button" class="place__title-like"></button>
       </div>
     </div>
     <div class="place">
-      <img src="./images/places/Dombai.png" class="place__image" alt="Домбай">
+      <img src="./images/places/dombai.jpg" class="place__image" alt="Домбай">
       <div class="place__title">
         <h3 class="place__title-text">Домбай</h3>
-        <a class="place__title-like" href="#"></a>
+        <button type="button" class="place__title-like"></button>
       </div>
     </div>
     <div class="place">
-      <img src="./images/places/Karachaevsk.png" class="place__image" alt="Карачаевск">
+      <img src="./images/places/karachaevsk.jpg" class="place__image" alt="Карачаевск">
       <div class="place__title">
         <h3 class="place__title-text">Карачаево-Черкессия</h3>
-        <a class="place__title-like" href="#"></a>
+        <button type="button" class="place__title-like"></button>
       </div>
     </div>
   </section>
   <footer class="footer page__section">
-    <h3 class="footer__copyright">&copy; 2020 Mesto Russia</h3>
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
 
   </footer>
   <div class="popup popup_closed">
     <div class="popup__container">
       <h4 class="popup__header">Редактировать профиль</h4>
-      <form class="popup__form" action="">
-        <input class="popup__full-name popup__input" type="text" value="">
-        <input class="popup__profession popup__input" type="text" value="">
-        <button class="popup__button-save">Сохранить</button>
+      <form class="popup__form" name="profile_edit" action="#" method="GET">
+        <input class="popup__input popup__input_full-name" name="popup__input_full-name" type="text" value="" placeholder="Имя пользователя" required>
+        <input class="popup__input popup__input_profession" name="popup__input_profession" type="text" value="" placeholder="Профессия" required>
+        <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
-      <a href="#" class="popup__button-close"></a>
+      <button type="button" class="popup__button-close"></button>
     </div>
 
   </div>
