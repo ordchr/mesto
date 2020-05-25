@@ -6,16 +6,8 @@
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
-@media screen and (max-width: 968px) {
-  .header {
-    min-height: 64px;
-  }
-}
-
-
 @media screen and (max-width: 425px) {
   .header {
-    min-height: 56px;
     margin-top: 38px;
     padding-left: 27px;
   }

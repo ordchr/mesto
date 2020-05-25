@@ -6,10 +6,11 @@
   color: #fff;
   font-size: 18px;
   line-height: 22px;
+  cursor: pointer;
+  margin-top: 44px;
 }
 
 
 .popup__button-save:hover {
-  background: rgba(0, 0, 0, 0.8);
-  cursor: pointer;
+  opacity: 0.8;
 }

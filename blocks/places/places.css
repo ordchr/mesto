@@ -19,7 +19,6 @@
   .places {
     margin-top: 36px;
     grid-template-columns: minmax(230px, 282px); 
-    grid-auto-rows: max-content; 
   }
 }
 

@@ -8,9 +8,9 @@
   top: -35px;
   right: -35px;
   position: absolute;
+  cursor: pointer;
 }
 
 .popup__button-close:hover {
-  background-image: url(./close-icon-hover.png);
-  cursor: pointer;
+  opacity: 0.6;
 }
