@@ -6,3 +6,10 @@
   flex-direction: column;
   position: relative;
 }
+
+@media screen and (max-width: 425px) {
+  .popup__container {
+    width: 240px;
+  }
+}
+
