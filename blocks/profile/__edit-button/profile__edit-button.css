@@ -2,11 +2,12 @@
   width: 24px;
   height: 24px;
   margin-left: 17px;
+  margin-right: 10px;
   background-image: url(../../../images/edit_button.svg);
   background-color: #000;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   border: none;
   cursor: pointer;
 }

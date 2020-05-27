@@ -6,3 +6,9 @@
   width: 11vw;
 }
 
+@media screen and (max-width: 768px) {
+  .header__logo {
+    padding-left: 27px;
+  }
+}
+

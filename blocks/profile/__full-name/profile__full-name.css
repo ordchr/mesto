@@ -5,7 +5,7 @@
   margin: 0 0 4px 0;
   position: relative;
   text-overflow: ellipsis; 
-  max-width: 300px;
+  max-width: 35vw;
   overflow: hidden; 
   white-space: nowrap;
 }
@@ -19,5 +19,6 @@
 @media screen and (max-width: 768px) {
   .profile__full-name {
     font-size: 27px;
+    max-width: 65vw;
   }
 }

@@ -4,3 +4,9 @@
   min-width: 300px;
   margin: 0 auto 0;
 }
+
+@media screen and (max-width: 768px) {
+  .page__section {
+    width: 90vw;
+  }
+}

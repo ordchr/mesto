@@ -1,5 +1,6 @@
 .place__title-like {
   background-image: url(../../../images/like.svg);
+  background-size: contain;
   background-position: center;
   object-fit: cover;
   background-repeat: no-repeat;
