@@ -23,48 +23,6 @@
   </section>
 
   <section class="places page__section">
-    <div class="place">
-      <img src="./images/places/karachaevsk.jpg" class="place__image" alt="Карачаевск">
-      <div class="place__title">
-        <h3 class="place__title-text">Карачаевск</h3>
-        <button type="button" class="place__title-like"></button>
-      </div>
-    </div>
-    <div class="place">
-      <img src="./images/places/elbrus.jpg" class="place__image" alt="Гора Эльбрус">
-      <div class="place__title">
-        <h3 class="place__title-text">Гора Эльбрус</h3>
-        <button type="button" class="place__title-like"></button>
-      </div>
-    </div>
-    <div class="place">
-      <img src="./images/places/dombai.jpg" class="place__image" alt="Домбай">
-      <div class="place__title">
-        <h3 class="place__title-text">Домбай</h3>
-        <button type="button" class="place__title-like"></button>
-      </div>
-    </div>
-    <div class="place">
-      <img src="./images/places/elbrus.jpg" class="place__image" alt="Гора Эльбрус">
-      <div class="place__title">
-        <h3 class="place__title-text">Гора Эльбрус</h3>
-        <button type="button" class="place__title-like"></button>
-      </div>
-    </div>
-    <div class="place">
-      <img src="./images/places/dombai.jpg" class="place__image" alt="Домбай">
-      <div class="place__title">
-        <h3 class="place__title-text">Домбай</h3>
-        <button type="button" class="place__title-like"></button>
-      </div>
-    </div>
-    <div class="place">
-      <img src="./images/places/karachaevsk.jpg" class="place__image" alt="Карачаевск">
-      <div class="place__title">
-        <h3 class="place__title-text">Карачаево-Черкессия</h3>
-        <button type="button" class="place__title-like"></button>
-      </div>
-    </div>
   </section>
   <footer class="footer page__section">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -72,16 +30,32 @@
   </footer>
   <div class="popup popup_closed">
     <div class="popup__container">
-      <h4 class="popup__header">Редактировать профиль</h4>
-      <form class="popup__form" name="profile_edit" action="#" method="GET">
+      <form class="popup__form popup__form-profile-edit" name="profile_edit" action="#" method="GET">
+        <h4 class="popup__header">Редактировать профиль</h4>
         <input class="popup__input popup__input_full-name" name="popup__input_full-name" type="text" value="" placeholder="Имя пользователя" required>
         <input class="popup__input popup__input_profession" name="popup__input_profession" type="text" value="" placeholder="Профессия" required>
+        <button class="popup__button-save" type="submit">Сохранить</button>
+      </form>
+      <form class="popup__form popup__form-card-add popup__form_disabled" name="card_add" action="#" method="GET">
+        <h4 class="popup__header">Новое место</h4>
+        <input class="popup__input popup__input_full-name" name="popup__input_full-name" type="text" value="" placeholder="Название" required>
+        <input class="popup__input popup__input_profession" name="popup__input_profession" type="text" value="" placeholder="Ссылка на картинку" required>
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
       <button type="button" class="popup__button-close"></button>
     </div>
 
   </div>
+  
+  <template id="place">
+    <div class="place">
+      <img src="1" class="place__image" alt="">
+      <div class="place__title">
+        <h3 class="place__title-text"></h3>
+        <button type="button" class="place__title-like"></button>
+      </div>
+    </div>
+  </template>
 
   <script src="./script/script.js"></script>
 </body>

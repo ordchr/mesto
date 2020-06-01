@@ -10,7 +10,7 @@
   margin-top: 29px;
 }
 
-.popup__input:first-child {
+.popup__input:first-of-type {
   margin-top: 0;
 }
 
