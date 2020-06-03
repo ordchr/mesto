@@ -10,6 +10,10 @@ const popupProfessionValue = document.querySelector('.popup__input_profession');
 
 const popupFormProfileEdit = document.querySelector('.popup__form-profile-edit');
 const popupFormCardAdd     = document.querySelector('.popup__form-card-add');
+// Форма для добавления карточки
+
+const popupInputPlaceName = document.querySelector('.popup__input_place-name');
+const popupInputImageLink = document.querySelector('.popup__input_place-image-link');
 
 const initialCards = [
     {
@@ -61,22 +65,30 @@ function showAddCardPopup() {
 
 }
 
-function closeEditProfilePopup() {
+function closePopup() {
   popup.classList.add('popup_closed');
   popup.classList.remove('popup_opened');
 }
 
-function formSubmitHandler (evt) {
+function formSubmitHandler(evt) {
   evt.preventDefault();
   profileFullName.textContent   = popupFullNameValue.value;
   profileProfession.textContent = popupProfessionValue.value;
-  closeEditProfilePopup();
+  closePopup();
+}
+
+function formAddCardSubmitHandler(evt) {
+  evt.preventDefault();
+  console.log(popupInputPlaceName);
+  unshiftOneCard( popupInputPlaceName.value, popupInputImageLink.value );
+  closePopup();
 }
 
 editButton.addEventListener('click', showEditProfilePopup);
-popupCloseButton.addEventListener('click', closeEditProfilePopup);
+popupCloseButton.addEventListener('click', closePopup);
 editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
+popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 
 
 function loadDefaultCards(initialCards) {
@@ -93,6 +105,19 @@ function loadDefaultCards(initialCards) {
     place.querySelector('.place__title-text').textContent=item.name;
     places.append(place);
   });
+
+}
+
+function unshiftOneCard( popupInputPlaceName, popupInputImageLink ) {
+  console.log(popupInputPlaceName, popupInputImageLink);
+  const place_tempate = document.querySelector('#place').content;
+  const place = place_tempate.cloneNode(true);
+  //console.log(place);
+  place.querySelector('.place__image').src=popupInputImageLink;
+  place.querySelector('.place__image').alt=popupInputPlaceName;
+  place.querySelector('.place__title-text').textContent=popupInputPlaceName;
+  const places = document.querySelector('.places');
+  places.prepend(place);
 
 }
 
