@@ -13,4 +13,9 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
+  -webkit-transition: visibility 0.2s, opacity 0.2s linear;
+  -moz-transition: visibility 0.2s, opacity 0.2s linear;
+  -o-transition: visibility 0.2s, opacity 0.2s linear;
+  transition: visibility 0.2s, opacity 0.2s linear;
+  display: flex;
 }
