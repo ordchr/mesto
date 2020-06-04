@@ -2,6 +2,7 @@
 @import url(./__title/place__title.css);
 @import url(./__title-text/place__title-text.css);
 @import url(./__title-like/place__title-like.css);
+@import url(./__title-like/_selected/place__title-like_selected.css);
 
 .place {
   color: #000;

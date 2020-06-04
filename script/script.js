@@ -15,6 +15,13 @@ const popupFormCardAdd     = document.querySelector('.popup__form-card-add');
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
 const popupInputImageLink = document.querySelector('.popup__input_place-image-link');
 
+// Карточки
+const places = document.querySelector('.places');
+places.addEventListener('click', (evt) => {
+  const eventTarget = evt.target;
+  eventTarget.classList.toggle('place__title-like_selected');
+});
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -90,20 +97,11 @@ editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
 popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 
-
 function loadDefaultCards(initialCards) {
   //console.log(initialCards);
-  const places = document.querySelector('.places');
   const place_tempate = document.querySelector('#place').content;
   initialCards.forEach((item) => {
-    //console.log(item);
-    //console.log(item.link);
-    const place = place_tempate.cloneNode(true);
-    //console.log(place);
-    place.querySelector('.place__image').src=item.link;
-    place.querySelector('.place__image').alt=item.name;
-    place.querySelector('.place__title-text').textContent=item.name;
-    places.append(place);
+    unshiftOneCard(item.name, item.link);
   });
 
 }
