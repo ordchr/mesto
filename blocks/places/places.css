@@ -10,18 +10,15 @@
 
 @media screen and (max-width: 1055px) {
   .places {
-    grid-template-columns: repeat(2, minmax(200px, 282px)); 
-    grid-auto-rows: max-content; 
+    grid-template-columns: repeat(2, minmax(230px, 282px));
+    grid-auto-rows: minmax(300px, 350px);
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .places {
-    grid-template-columns: minmax(230px, 282px); 
+    grid-template-columns: minmax(230px, 282px);
     margin-top: 36px;
   }
 }
 
-/*@media screen and (max-width: 768px) {*/
-
-/*@media screen and (max-width: 320px) {*/

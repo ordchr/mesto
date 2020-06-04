@@ -1,5 +1,7 @@
+@import url(./__container/popup-preview__container.css);
 @import url(./__image/popup-preview__image.css);
 @import url(./__button-close/popup-preview__button-close.css);
+@import url(./__description/popup-preview__description.css);
 
 .popup-preview {
   position: fixed;

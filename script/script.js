@@ -117,11 +117,14 @@ function closePreviewPopup() {
 }
 
 function showPopupPreview(evt) {
-  console.log(evt.src);
+  console.log(evt);
   popupPreview.classList.remove('popup_closed');
   popupPreview.classList.add('popup_opened');
   console.log(popupPreviewImage);
   popupPreviewImage.src = evt.src;
+  const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
+  console.log(evt.parentElement);
+  popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
 }
 
 function loadDefaultCards(initialCards) {
