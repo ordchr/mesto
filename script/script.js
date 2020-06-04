@@ -24,8 +24,15 @@ places.addEventListener('click', (evt) => {
     eventTarget.classList.toggle('place__title-like_selected');
   } else if (eventTarget.classList.contains('place__image-del')) {
     eventTarget.parentElement.remove();
+  } else if ( eventTarget.classList.contains('place__image') ) {
+    showPopupPreview(eventTarget);
   }
 });
+
+// Превью изображения
+const popupPreview = document.querySelector('.popup-preview');
+const popupPreviewImage = popupPreview.querySelector('.popup-preview__image');
+const popupPreviewCloseButton = document.querySelector('.popup-preview__button-close');
 
 const initialCards = [
     {
@@ -91,7 +98,7 @@ function formSubmitHandler(evt) {
 
 function formAddCardSubmitHandler(evt) {
   evt.preventDefault();
-  console.log(popupInputPlaceName);
+  //console.log(popupInputPlaceName);
   unshiftOneCard( popupInputPlaceName.value, popupInputImageLink.value );
   closePopup();
 }
@@ -101,6 +108,21 @@ popupCloseButton.addEventListener('click', closePopup);
 editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
 popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
+
+popupPreviewCloseButton.addEventListener('click', closePreviewPopup);
+
+function closePreviewPopup() {
+  popupPreview.classList.add('popup_closed');
+  popupPreview.classList.remove('popup_opened');
+}
+
+function showPopupPreview(evt) {
+  console.log(evt.src);
+  popupPreview.classList.remove('popup_closed');
+  popupPreview.classList.add('popup_opened');
+  console.log(popupPreviewImage);
+  popupPreviewImage.src = evt.src;
+}
 
 function loadDefaultCards(initialCards) {
   //console.log(initialCards);
@@ -112,7 +134,7 @@ function loadDefaultCards(initialCards) {
 }
 
 function unshiftOneCard( popupInputPlaceName, popupInputImageLink ) {
-  console.log(popupInputPlaceName, popupInputImageLink);
+  //console.log(popupInputPlaceName, popupInputImageLink);
   const place_tempate = document.querySelector('#place').content;
   const place = place_tempate.cloneNode(true);
   //console.log(place);
