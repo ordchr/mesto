@@ -19,7 +19,12 @@ const popupInputImageLink = document.querySelector('.popup__input_place-image-li
 const places = document.querySelector('.places');
 places.addEventListener('click', (evt) => {
   const eventTarget = evt.target;
-  eventTarget.classList.toggle('place__title-like_selected');
+  //console.log(eventTarget);
+  if (eventTarget.classList.contains('place__title-like')) {
+    eventTarget.classList.toggle('place__title-like_selected');
+  } else if (eventTarget.classList.contains('place__image-del')) {
+    eventTarget.parentElement.remove();
+  }
 });
 
 const initialCards = [

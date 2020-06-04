@@ -3,6 +3,8 @@
 @import url(./__title-text/place__title-text.css);
 @import url(./__title-like/place__title-like.css);
 @import url(./__title-like/_selected/place__title-like_selected.css);
+@import url(./__image-del/place__image-del.css);
+
 
 .place {
   color: #000;
@@ -16,4 +18,5 @@
   /*height: 100%;*/
   /*width: 282px;*/
   /*min-height: 361px;*/
+  position: relative;
 }
