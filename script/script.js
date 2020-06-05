@@ -15,11 +15,18 @@ const popupFormCardAdd     = document.querySelector('.popup__form-card-add');
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
 const popupInputImageLink = document.querySelector('.popup__input_place-image-link');
 
+function showPopupPreview(evt) {
+  popupPreview.classList.remove('popup_closed');
+  popupPreview.classList.add('popup_opened');
+  popupPreviewImage.src = evt.src;
+  const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
+  popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
+}
+
 // Карточки
 const places = document.querySelector('.places');
 places.addEventListener('click', (evt) => {
   const eventTarget = evt.target;
-  //console.log(eventTarget);
   if (eventTarget.classList.contains('place__title-like')) {
     eventTarget.classList.toggle('place__title-like_selected');
   } else if (eventTarget.classList.contains('place__image-del')) {
@@ -61,7 +68,6 @@ const initialCards = [
     }
 ];
 
-loadDefaultCards(initialCards);
 
 
 
@@ -96,11 +102,27 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
+function prependCard( placeName, placeLink ) {
+  const placeTempate = document.querySelector('#place').content;
+  const place = placeTempate.cloneNode(true);
+  const placeImage = place.querySelector('.place__image');
+  placeImage.src=placeLink;
+  placeImage.alt=placeName;
+  place.querySelector('.place__title-text').textContent=placeName;
+  const places = document.querySelector('.places');
+  places.prepend(place);
+
+}
+
 function formAddCardSubmitHandler(evt) {
   evt.preventDefault();
-  //console.log(popupInputPlaceName);
-  unshiftOneCard( popupInputPlaceName.value, popupInputImageLink.value );
+  prependCard( popupInputPlaceName.value, popupInputImageLink.value );
   closePopup();
+}
+
+function closePreviewPopup() {
+  popupPreview.classList.add('popup_closed');
+  popupPreview.classList.remove('popup_opened');
 }
 
 editButton.addEventListener('click', showEditProfilePopup);
@@ -111,41 +133,15 @@ popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 
 popupPreviewCloseButton.addEventListener('click', closePreviewPopup);
 
-function closePreviewPopup() {
-  popupPreview.classList.add('popup_closed');
-  popupPreview.classList.remove('popup_opened');
-}
-
-function showPopupPreview(evt) {
-  console.log(evt);
-  popupPreview.classList.remove('popup_closed');
-  popupPreview.classList.add('popup_opened');
-  console.log(popupPreviewImage);
-  popupPreviewImage.src = evt.src;
-  const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
-  console.log(evt.parentElement);
-  popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
-}
 
 function loadDefaultCards(initialCards) {
-  //console.log(initialCards);
-  const place_tempate = document.querySelector('#place').content;
   initialCards.forEach((item) => {
-    unshiftOneCard(item.name, item.link);
+    prependCard(item.name, item.link);
   });
 
 }
 
-function unshiftOneCard( popupInputPlaceName, popupInputImageLink ) {
-  //console.log(popupInputPlaceName, popupInputImageLink);
-  const place_tempate = document.querySelector('#place').content;
-  const place = place_tempate.cloneNode(true);
-  //console.log(place);
-  place.querySelector('.place__image').src=popupInputImageLink;
-  place.querySelector('.place__image').alt=popupInputPlaceName;
-  place.querySelector('.place__title-text').textContent=popupInputPlaceName;
-  const places = document.querySelector('.places');
-  places.prepend(place);
 
-}
+
+loadDefaultCards(initialCards);
 
