@@ -46,8 +46,10 @@
       </form>
       <form class="popup__form popup__form-card-add popup__form_disabled" name="card_add" action="#" method="GET">
         <h4 class="popup__header">Новое место</h4>
-        <input class="popup__input popup__input_place-name" name="popup__input_place-name" type="text" value="" placeholder="Название" required>
-        <input class="popup__input popup__input_place-image-link" name="popup__input_place-image-link" type="text" value="" placeholder="Ссылка на картинку" required>
+        <input id="popup-input-place-name" class="popup__input popup__input_place-name" name="popup__input_place-name" type="text" value="" placeholder="Название" minlength="1" maxlength="30" required>
+        <span id="popup-input-place-name-error" class="popup__input-error"></span>
+        <input id="popup-input-place-image-link" class="popup__input popup__input_place-image-link" name="popup__input_place-image-link" type="url" value="" placeholder="Ссылка на картинку" required>
+        <span id="popup-input-place-image-link-error" class="popup__input-error"></span>
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
       <button type="button" class="popup__button-close"></button>

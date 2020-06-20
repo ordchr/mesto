@@ -87,7 +87,7 @@ function showAddCardPopup() {
   popupFormCardAdd.classList.remove('popup__form_disabled');
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
-
+  setEventListeners(popupFormCardAdd);
 }
 
 function closePopup() {
@@ -141,8 +141,6 @@ function loadDefaultCards(initialCards) {
 
 }
 
-
-
 loadDefaultCards(initialCards);
 
 function hasInvalidInput(inputList) {
@@ -170,10 +168,12 @@ function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   console.log(inputList);
   const buttonElement = formElement.querySelector('.popup__button-save');
+  toggleButtonState(inputList, buttonElement);
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
+    isValid(formElement, inputElement)
     inputElement.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
