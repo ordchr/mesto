@@ -135,6 +135,13 @@ popupContainer.addEventListener('click', (evt) => {
 });
 popup.addEventListener('click', closePopup);
 
+// Перехватываем нажатие клавиши Esc для закрытия окна popup
+document.addEventListener('keydown', function(evt) {
+    if (evt.key === "Escape") {
+      closePopup();
+    }
+});
+
 editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
 popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
