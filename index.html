@@ -32,8 +32,16 @@
     <div class="popup__container">
       <form class="popup__form popup__form-profile-edit" name="profile_edit" action="#" method="GET">
         <h4 class="popup__header">Редактировать профиль</h4>
-        <input class="popup__input popup__input_full-name" name="popup__input_full-name" type="text" value="" placeholder="Имя пользователя" required>
-        <input class="popup__input popup__input_profession" name="popup__input_profession" type="text" value="" placeholder="Профессия" required>
+        <input id="popup-input-full-name" class="popup__input popup__input_full-name"
+        name="popup__input_full-name" type="text" value="" placeholder="Имя пользователя"
+        minlength="2" maxlength="40" required
+        >
+        <span id="popup-input-full-name-error" class="popup__input-error"></span>
+        <input id="popup-input-profession" class="popup__input popup__input_profession"
+        name="popup__input_profession" type="text" value="" placeholder="Профессия"
+        minlength="2" maxlength="200" required
+        >
+        <span id="popup-input-profession-error" class="popup__input-error"></span>
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
       <form class="popup__form popup__form-card-add popup__form_disabled" name="card_add" action="#" method="GET">
@@ -55,7 +63,7 @@
       <p class="popup-preview__description"></p>
     </div>
   </div>
-  
+
   <template id="place">
     <div class="place">
       <img src="1" class="place__image" alt="">

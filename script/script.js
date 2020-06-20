@@ -79,7 +79,7 @@ function showEditProfilePopup() {
   popupFormCardAdd.classList.add('popup__form_disabled');
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
-
+  setEventListeners(popupFormProfileEdit);
 }
 
 function showAddCardPopup() {
@@ -144,4 +144,78 @@ function loadDefaultCards(initialCards) {
 
 
 loadDefaultCards(initialCards);
+
+function hasInvalidInput(inputList) {
+  return inputList.some((item) => {
+    return !item.validity.valid;
+  });
+}
+
+
+function toggleButtonState(inputList, buttonElement) {
+  console.log(inputList);
+  // Если есть хотя бы один невалидный инпут
+  if (hasInvalidInput(inputList)) {
+    // сделай кнопку неактивной
+    buttonElement.classList.add('popup__button-save_inactive');
+  } else {
+        // иначе сделай кнопку активной
+    buttonElement.classList.remove('popup__button-save_inactive');
+  }
+};
+
+function setEventListeners(formElement) {
+  // Находим все поля внутри формы,
+  // сделаем из них массив методом Array.from
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  console.log(inputList);
+  const buttonElement = formElement.querySelector('.popup__button-save');
+
+  // Обойдём все элементы полученной коллекции
+  inputList.forEach((inputElement) => {
+    // каждому полю добавим обработчик события input
+    inputElement.addEventListener('input', () => {
+      // Внутри колбэка вызовем isValid,
+      // передав ей форму и проверяемый элемент
+      isValid(formElement, inputElement)
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+// Включаем для некоторого поля ввода показ ошибки
+function showInputError(formElement, inputElement, errorMessage) {
+  // Находим элемент ошибки внутри самой функции
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  // Остальной код такой же
+  inputElement.classList.add('popup__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__input-error_active');
+};
+
+// Отключаем для некоторого поля ввода показ ошибки
+function hideInputError(formElement, inputElement) {
+  // Находим элемент ошибки
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  // Остальной код такой же
+  inputElement.classList.remove('popup__input_type_error');
+  errorElement.classList.remove('popup__input-error_active');
+  errorElement.textContent = '';
+};
+
+function isValid(formElement, inputElement) {
+  console.log(inputElement.validity);
+  console.log(inputElement.validationMessage);
+  if (!inputElement.validity.valid) {
+    // showInputError теперь получает параметром форму, в которой
+    // находится проверяемое поле, и само это поле
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    // hideInputError теперь получает параметром форму, в которой
+    // находится проверяемое поле, и само это поле
+    hideInputError(formElement, inputElement);
+  }
+};
+
+
 

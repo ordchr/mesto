@@ -4,11 +4,15 @@
 @import url(./__input/_full-name/popup__input_full-name.css);
 @import url(./__input/_profession/popup__input_profession.css);
 @import url(./__button-save/popup__button-save.css);
+@import url(./__button-save/_inactive/popup__button-save_inactive.css);
 @import url(./__button-close/popup__button-close.css);
 @import url(./_opened/popup_opened.css);
 @import url(./_closed/popup_closed.css);
 @import url(./__form/popup__form.css);
 @import url(./__form/_disabled/popup__form_disabled.css);
+@import url(./__input-error/popup__input-error.css);
+@import url(./__input-error/_active/popup__input-error_active.css);
+
 
 .popup {
   position: fixed;
