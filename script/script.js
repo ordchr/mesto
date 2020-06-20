@@ -2,6 +2,7 @@ const editButton           = document.querySelector('.profile__edit-button');
 const addCardButton        = document.querySelector('.profile__add-button');
 const popupCloseButton     = document.querySelector('.popup__button-close');
 const popup                = document.querySelector('.popup');
+const popupContainer       = document.querySelector('.popup__container');
 const editProfileForm      = document.querySelector('.popup__form');
 const profileFullName      = document.querySelector('.profile__full-name');
 const profileProfession    = document.querySelector('.profile__profession');
@@ -127,6 +128,13 @@ function closePreviewPopup() {
 
 editButton.addEventListener('click', showEditProfilePopup);
 popupCloseButton.addEventListener('click', closePopup);
+
+popupContainer.addEventListener('click', (evt) => {
+  // Остановим обработку события в контейнере, чтобы событие не попало в блок popup
+  evt.stopPropagation();
+});
+popup.addEventListener('click', closePopup);
+
 editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
 popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
@@ -151,7 +159,7 @@ function hasInvalidInput(inputList) {
 
 
 function toggleButtonState(inputList, buttonElement) {
-  console.log(inputList);
+  //console.log(inputList);
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
@@ -166,7 +174,7 @@ function setEventListeners(formElement) {
   // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  console.log(inputList);
+  //console.log(inputList);
   const buttonElement = formElement.querySelector('.popup__button-save');
   toggleButtonState(inputList, buttonElement);
 
@@ -204,8 +212,8 @@ function hideInputError(formElement, inputElement) {
 };
 
 function isValid(formElement, inputElement) {
-  console.log(inputElement.validity);
-  console.log(inputElement.validationMessage);
+  //console.log(inputElement.validity);
+  //console.log(inputElement.validationMessage);
   if (!inputElement.validity.valid) {
     // showInputError теперь получает параметром форму, в которой
     // находится проверяемое поле, и само это поле
