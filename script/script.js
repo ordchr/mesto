@@ -24,6 +24,15 @@ const showPopupPreview = (evt) => {
   popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
 }
 
+const validateOptions = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+
 // Карточки
 const places = document.querySelector('.places');
 places.addEventListener('click', (evt) => {
@@ -76,7 +85,7 @@ const showEditProfilePopup = () => {
   popupFormCardAdd.classList.add('popup__form_disabled');
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
-  setEventListeners(popupFormProfileEdit);
+  validateForm(validateOptions, popupFormProfileEdit);
 }
 
 const showAddCardPopup = () => {
@@ -84,7 +93,7 @@ const showAddCardPopup = () => {
   popupFormCardAdd.classList.remove('popup__form_disabled');
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
-  setEventListeners(popupFormCardAdd);
+  validateForm(validateOptions, popupFormCardAdd);
 }
 
 const closePopup = () => {
@@ -144,7 +153,6 @@ popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 
 popupPreviewCloseButton.addEventListener('click', closePreviewPopup);
 
-
 const loadDefaultCards = (initialCards) => {
   initialCards.forEach((item) => {
     prependCard(item.name, item.link);
@@ -154,72 +162,4 @@ const loadDefaultCards = (initialCards) => {
 
 loadDefaultCards(initialCards);
 
-const hasInvalidInput = (inputList) => {
-  return inputList.some((item) => {
-    return !item.validity.valid;
-  });
-}
-
-const toggleButtonState = (inputList, buttonElement) => {
-  // Если есть хотя бы один невалидный инпут
-  if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
-    buttonElement.classList.add('popup__button-save_inactive');
-  } else {
-    // иначе сделай кнопку активной
-    buttonElement.classList.remove('popup__button-save_inactive');
-  }
-};
-
-const setEventListeners = (formElement) => {
-  // Находим все поля внутри формы,
-  // сделаем из них массив методом Array.from
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__button-save');
-  toggleButtonState(inputList, buttonElement);
-
-  // Обойдём все элементы полученной коллекции
-  inputList.forEach((inputElement) => {
-    // каждому полю добавим обработчик события input
-    isValid(formElement, inputElement)
-    inputElement.addEventListener('input', () => {
-      // Внутри колбэка вызовем isValid,
-      // передав ей форму и проверяемый элемент
-      isValid(formElement, inputElement)
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-// Включаем для некоторого поля ввода показ ошибки
-const showInputError = (formElement, inputElement, errorMessage) => {
-  // Находим элемент ошибки внутри самой функции
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
-  errorElement.classList.add('popup__input-error_active');
-  errorElement.textContent = errorMessage;
-};
-
-// Отключаем для некоторого поля ввода показ ошибки
-const hideInputError = (formElement, inputElement) => {
-  // Находим элемент ошибки
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__input-error_active');
-  errorElement.textContent = '';
-};
-
-const isValid = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    // showInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    // hideInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-    hideInputError(formElement, inputElement);
-  }
-};
-
-
-
+enableValidation(validateOptions);
