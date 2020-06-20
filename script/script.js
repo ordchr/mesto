@@ -16,7 +16,7 @@ const popupFormCardAdd     = document.querySelector('.popup__form-card-add');
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
 const popupInputImageLink = document.querySelector('.popup__input_place-image-link');
 
-function showPopupPreview(evt) {
+const showPopupPreview = (evt) => {
   popupPreview.classList.remove('popup_closed');
   popupPreview.classList.add('popup_opened');
   popupPreviewImage.src = evt.src;
@@ -69,11 +69,7 @@ const initialCards = [
     }
 ];
 
-
-
-
-
-function showEditProfilePopup() {
+const showEditProfilePopup = () => {
   popupFullNameValue.value   = profileFullName.textContent;
   popupProfessionValue.value = profileProfession.textContent;
   popupFormProfileEdit.classList.remove('popup__form_disabled');
@@ -83,7 +79,7 @@ function showEditProfilePopup() {
   setEventListeners(popupFormProfileEdit);
 }
 
-function showAddCardPopup() {
+const showAddCardPopup = () => {
   popupFormProfileEdit.classList.add('popup__form_disabled');
   popupFormCardAdd.classList.remove('popup__form_disabled');
   popup.classList.remove('popup_closed');
@@ -91,19 +87,19 @@ function showAddCardPopup() {
   setEventListeners(popupFormCardAdd);
 }
 
-function closePopup() {
+const closePopup = () => {
   popup.classList.add('popup_closed');
   popup.classList.remove('popup_opened');
 }
 
-function formSubmitHandler(evt) {
+const formSubmitHandler = (evt) => {
   evt.preventDefault();
   profileFullName.textContent   = popupFullNameValue.value;
   profileProfession.textContent = popupProfessionValue.value;
   closePopup();
 }
 
-function prependCard( placeName, placeLink ) {
+const prependCard = (placeName, placeLink) => {
   const placeTempate = document.querySelector('#place').content;
   const place = placeTempate.cloneNode(true);
   const placeImage = place.querySelector('.place__image');
@@ -115,13 +111,13 @@ function prependCard( placeName, placeLink ) {
 
 }
 
-function formAddCardSubmitHandler(evt) {
+const formAddCardSubmitHandler = (evt) => {
   evt.preventDefault();
   prependCard( popupInputPlaceName.value, popupInputImageLink.value );
   closePopup();
 }
 
-function closePreviewPopup() {
+const closePreviewPopup = () => {
   popupPreview.classList.add('popup_closed');
   popupPreview.classList.remove('popup_opened');
 }
@@ -149,7 +145,7 @@ popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 popupPreviewCloseButton.addEventListener('click', closePreviewPopup);
 
 
-function loadDefaultCards(initialCards) {
+const loadDefaultCards = (initialCards) => {
   initialCards.forEach((item) => {
     prependCard(item.name, item.link);
   });
@@ -158,30 +154,27 @@ function loadDefaultCards(initialCards) {
 
 loadDefaultCards(initialCards);
 
-function hasInvalidInput(inputList) {
+const hasInvalidInput = (inputList) => {
   return inputList.some((item) => {
     return !item.validity.valid;
   });
 }
 
-
-function toggleButtonState(inputList, buttonElement) {
-  //console.log(inputList);
+const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
     buttonElement.classList.add('popup__button-save_inactive');
   } else {
-        // иначе сделай кнопку активной
+    // иначе сделай кнопку активной
     buttonElement.classList.remove('popup__button-save_inactive');
   }
 };
 
-function setEventListeners(formElement) {
+const setEventListeners = (formElement) => {
   // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  //console.log(inputList);
   const buttonElement = formElement.querySelector('.popup__button-save');
   toggleButtonState(inputList, buttonElement);
 
@@ -199,28 +192,24 @@ function setEventListeners(formElement) {
 };
 
 // Включаем для некоторого поля ввода показ ошибки
-function showInputError(formElement, inputElement, errorMessage) {
+const showInputError = (formElement, inputElement, errorMessage) => {
   // Находим элемент ошибки внутри самой функции
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  // Остальной код такой же
   inputElement.classList.add('popup__input_type_error');
-  errorElement.textContent = errorMessage;
   errorElement.classList.add('popup__input-error_active');
+  errorElement.textContent = errorMessage;
 };
 
 // Отключаем для некоторого поля ввода показ ошибки
-function hideInputError(formElement, inputElement) {
+const hideInputError = (formElement, inputElement) => {
   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  // Остальной код такой же
   inputElement.classList.remove('popup__input_type_error');
   errorElement.classList.remove('popup__input-error_active');
   errorElement.textContent = '';
 };
 
-function isValid(formElement, inputElement) {
-  //console.log(inputElement.validity);
-  //console.log(inputElement.validationMessage);
+const isValid = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
     // showInputError теперь получает параметром форму, в которой
     // находится проверяемое поле, и само это поле
