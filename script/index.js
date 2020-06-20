@@ -78,6 +78,18 @@ const initialCards = [
     }
 ];
 
+const checkEscKeyInEvent = (evt) => {
+  if (evt.key === "Escape") {
+    closePopup();
+  }
+}
+
+const addEscEventListener = () => {
+  // Перехватываем нажатие клавиши Esc для закрытия окна popup
+  document.addEventListener('keydown', checkEscKeyInEvent);
+}
+
+
 const showEditProfilePopup = () => {
   popupFullNameValue.value   = profileFullName.textContent;
   popupProfessionValue.value = profileProfession.textContent;
@@ -86,6 +98,7 @@ const showEditProfilePopup = () => {
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
   validateForm(validateOptions, popupFormProfileEdit);
+  addEscEventListener();
 }
 
 const showAddCardPopup = () => {
@@ -94,11 +107,13 @@ const showAddCardPopup = () => {
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
   validateForm(validateOptions, popupFormCardAdd);
+  addEscEventListener();
 }
 
 const closePopup = () => {
   popup.classList.add('popup_closed');
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', checkEscKeyInEvent);
 }
 
 const formSubmitHandler = (evt) => {
@@ -139,13 +154,6 @@ popupContainer.addEventListener('click', (evt) => {
   evt.stopPropagation();
 });
 popup.addEventListener('click', closePopup);
-
-// Перехватываем нажатие клавиши Esc для закрытия окна popup
-document.addEventListener('keydown', function(evt) {
-    if (evt.key === "Escape") {
-      closePopup();
-    }
-});
 
 editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
