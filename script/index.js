@@ -1,16 +1,16 @@
-const editButton           = document.querySelector('.profile__edit-button');
-const addCardButton        = document.querySelector('.profile__add-button');
-const popupCloseButton     = document.querySelector('.popup__button-close');
-const popup                = document.querySelector('.popup');
-const popupContainer       = document.querySelector('.popup__container');
-const editProfileForm      = document.querySelector('.popup__form');
-const profileFullName      = document.querySelector('.profile__full-name');
-const profileProfession    = document.querySelector('.profile__profession');
-const popupFullNameValue   = document.querySelector('.popup__input_full-name');
+const editButton = document.querySelector('.profile__edit-button');
+const addCardButton = document.querySelector('.profile__add-button');
+const popupCloseButton = document.querySelector('.popup__button-close');
+const popup = document.querySelector('.popup');
+const popupContainer = document.querySelector('.popup__container');
+const editProfileForm = document.querySelector('.popup__form');
+const profileFullName = document.querySelector('.profile__full-name');
+const profileProfession = document.querySelector('.profile__profession');
+const popupFullNameValue = document.querySelector('.popup__input_full-name');
 const popupProfessionValue = document.querySelector('.popup__input_profession');
 
 const popupFormProfileEdit = document.querySelector('.popup__form-profile-edit');
-const popupFormCardAdd     = document.querySelector('.popup__form-card-add');
+const popupFormCardAdd = document.querySelector('.popup__form-card-add');
 // Форма для добавления карточки
 
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
@@ -88,7 +88,6 @@ const addEscEventListener = () => {
   // Перехватываем нажатие клавиши Esc для закрытия окна popup
   document.addEventListener('keydown', checkEscKeyInEvent);
 }
-
 
 const showEditProfilePopup = () => {
   popupFullNameValue.value   = profileFullName.textContent;
