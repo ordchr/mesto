@@ -16,12 +16,36 @@ const popupFormCardAdd = document.querySelector('.popup__form-card-add');
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
 const popupInputImageLink = document.querySelector('.popup__input_place-image-link');
 
+// Превью изображения
+const popupPreview = document.querySelector('.popup-preview');
+const popupPreviewContainer = document.querySelector('.popup-preview__container');
+const popupPreviewImage = popupPreview.querySelector('.popup-preview__image');
+const popupPreviewCloseButton = document.querySelector('.popup-preview__button-close');
+
+const closePopupPreview = () => {
+  popupPreview.classList.add('popup_closed');
+  popupPreview.classList.remove('popup_opened');
+  document.removeEventListener('keydown', checkEscKeyForPopupPreview);
+}
+
+const checkEscKeyForPopupPreview = (evt) => {
+  if (evt.key === "Escape") {
+    closePopupPreview();
+  }
+}
+
+const addEscEventListenerPopupPreview = () => {
+  // Перехватываем нажатие клавиши Esc для закрытия окна popup
+  document.addEventListener('keydown', checkEscKeyForPopupPreview);
+}
+
 const showPopupPreview = (evt) => {
   popupPreview.classList.remove('popup_closed');
   popupPreview.classList.add('popup_opened');
   popupPreviewImage.src = evt.src;
   const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
   popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
+  addEscEventListenerPopupPreview();
 }
 
 const validateOptions = {
@@ -46,10 +70,6 @@ places.addEventListener('click', (evt) => {
   }
 });
 
-// Превью изображения
-const popupPreview = document.querySelector('.popup-preview');
-const popupPreviewImage = popupPreview.querySelector('.popup-preview__image');
-const popupPreviewCloseButton = document.querySelector('.popup-preview__button-close');
 
 const initialCards = [
     {
@@ -78,7 +98,7 @@ const initialCards = [
     }
 ];
 
-const checkEscKeyInEvent = (evt) => {
+const checkEscKeyForPopup = (evt) => {
   if (evt.key === "Escape") {
     closePopup();
   }
@@ -86,7 +106,7 @@ const checkEscKeyInEvent = (evt) => {
 
 const addEscEventListener = () => {
   // Перехватываем нажатие клавиши Esc для закрытия окна popup
-  document.addEventListener('keydown', checkEscKeyInEvent);
+  document.addEventListener('keydown', checkEscKeyForPopup);
 }
 
 const showEditProfilePopup = () => {
@@ -112,7 +132,7 @@ const showAddCardPopup = () => {
 const closePopup = () => {
   popup.classList.add('popup_closed');
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', checkEscKeyInEvent);
+  document.removeEventListener('keydown', checkEscKeyForPopup);
 }
 
 const formSubmitHandler = (evt) => {
@@ -140,10 +160,13 @@ const formAddCardSubmitHandler = (evt) => {
   closePopup();
 }
 
-const closePreviewPopup = () => {
-  popupPreview.classList.add('popup_closed');
-  popupPreview.classList.remove('popup_opened');
-}
+
+
+popupPreviewContainer.addEventListener('click', (evt) => {
+  // Остановим обработку события в контейнере, чтобы событие не попало в блок popupPreview
+  evt.stopPropagation();
+});
+popupPreview.addEventListener('click', closePopupPreview);
 
 editButton.addEventListener('click', showEditProfilePopup);
 popupCloseButton.addEventListener('click', closePopup);
@@ -158,7 +181,7 @@ editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
 popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 
-popupPreviewCloseButton.addEventListener('click', closePreviewPopup);
+popupPreviewCloseButton.addEventListener('click', closePopupPreview);
 
 const loadDefaultCards = (initialCards) => {
   initialCards.forEach((item) => {
