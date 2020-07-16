@@ -22,22 +22,39 @@ const popupPreviewContainer = document.querySelector('.popup-preview__container'
 const popupPreviewImage = popupPreview.querySelector('.popup-preview__image');
 const popupPreviewCloseButton = document.querySelector('.popup-preview__button-close');
 
-const closePopupPreview = () => {
-  popupPreview.classList.add('popup_closed');
-  popupPreview.classList.remove('popup_opened');
-  document.removeEventListener('keydown', checkEscKeyForPopupPreview);
+const closePopup1 = (popupForClose) => {
+  popupForClose.classList.add('popup_closed');
+  popupForClose.classList.remove('popup_opened');
+  document.removeEventListener('keydown', checkEscKeyForPopup1);
 }
 
-const checkEscKeyForPopupPreview = (evt) => {
+const checkEscKeyForPopup1 = (evt) => {
   if (evt.key === "Escape") {
-    closePopupPreview();
+    closePopup1(document.querySelector('.popup_opened'));
   }
 }
 
-const addEscEventListenerPopupPreview = () => {
+//const closePopupPreview = () => {
+  //popupPreview.classList.add('popup_closed');
+  //popupPreview.classList.remove('popup_opened');
+  //document.removeEventListener('keydown', checkEscKeyForPopupPreview);
+//}
+
+//const checkEscKeyForPopupPreview = (evt) => {
+  //if (evt.key === "Escape") {
+    //closePopupPreview();
+  //}
+//}
+
+const addEscEventListenerPopup1 = () => {
   // Перехватываем нажатие клавиши Esc для закрытия окна popup
-  document.addEventListener('keydown', checkEscKeyForPopupPreview);
+  document.addEventListener('keydown', checkEscKeyForPopup1);
 }
+
+//const addEscEventListenerPopupPreview = () => {
+  //// Перехватываем нажатие клавиши Esc для закрытия окна popup
+  //document.addEventListener('keydown', checkEscKeyForPopupPreview);
+//}
 
 const showPopupPreview = (evt) => {
   popupPreview.classList.remove('popup_closed');
@@ -45,7 +62,7 @@ const showPopupPreview = (evt) => {
   popupPreviewImage.src = evt.src;
   const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
   popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
-  addEscEventListenerPopupPreview();
+  addEscEventListenerPopup1();
 }
 
 const validateOptions = {
@@ -98,16 +115,16 @@ const initialCards = [
     }
 ];
 
-const checkEscKeyForPopup = (evt) => {
-  if (evt.key === "Escape") {
-    closePopup();
-  }
-}
+//const checkEscKeyForPopup = (evt) => {
+  //if (evt.key === "Escape") {
+    //closePopup();
+  //}
+//}
 
-const addEscEventListener = () => {
-  // Перехватываем нажатие клавиши Esc для закрытия окна popup
-  document.addEventListener('keydown', checkEscKeyForPopup);
-}
+//const addEscEventListener = () => {
+  //// Перехватываем нажатие клавиши Esc для закрытия окна popup
+  //document.addEventListener('keydown', checkEscKeyForPopup);
+//}
 
 const showEditProfilePopup = () => {
   popupFullNameValue.value   = profileFullName.textContent;
@@ -117,7 +134,7 @@ const showEditProfilePopup = () => {
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
   validateForm(validateOptions, popupFormProfileEdit);
-  addEscEventListener();
+  addEscEventListenerPopup1();
 }
 
 const showAddCardPopup = () => {
@@ -126,20 +143,20 @@ const showAddCardPopup = () => {
   popup.classList.remove('popup_closed');
   popup.classList.add('popup_opened');
   validateForm(validateOptions, popupFormCardAdd);
-  addEscEventListener();
+  addEscEventListenerPopup1();
 }
 
-const closePopup = () => {
-  popup.classList.add('popup_closed');
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', checkEscKeyForPopup);
-}
+//const closePopup = () => {
+  //popup.classList.add('popup_closed');
+  //popup.classList.remove('popup_opened');
+  //document.removeEventListener('keydown', checkEscKeyForPopup);
+//}
 
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
   profileFullName.textContent   = popupFullNameValue.value;
   profileProfession.textContent = popupProfessionValue.value;
-  closePopup();
+  closePopup1(popup);
 }
 
 const prependCard = (placeName, placeLink) => {
@@ -157,31 +174,30 @@ const prependCard = (placeName, placeLink) => {
 const formAddCardSubmitHandler = (evt) => {
   evt.preventDefault();
   prependCard( popupInputPlaceName.value, popupInputImageLink.value );
-  closePopup();
+  closePopup1(popup);
 }
-
 
 
 popupPreviewContainer.addEventListener('click', (evt) => {
   // Остановим обработку события в контейнере, чтобы событие не попало в блок popupPreview
   evt.stopPropagation();
 });
-popupPreview.addEventListener('click', closePopupPreview);
+popupPreview.addEventListener('click', () => closePopup1(popupPreview));
 
 editButton.addEventListener('click', showEditProfilePopup);
-popupCloseButton.addEventListener('click', closePopup);
+popupCloseButton.addEventListener('click', () => closePopup1(popup));
 
 popupContainer.addEventListener('click', (evt) => {
   // Остановим обработку события в контейнере, чтобы событие не попало в блок popup
   evt.stopPropagation();
 });
-popup.addEventListener('click', closePopup);
+popup.addEventListener('click', () => closePopup1(popup));
 
 editProfileForm.addEventListener('submit', formSubmitHandler);
 addCardButton.addEventListener('click', showAddCardPopup);
 popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
 
-popupPreviewCloseButton.addEventListener('click', closePopupPreview);
+popupPreviewCloseButton.addEventListener('click', () => closePopup1(popupPreview));
 
 const loadDefaultCards = (initialCards) => {
   initialCards.forEach((item) => {
