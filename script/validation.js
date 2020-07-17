@@ -73,8 +73,7 @@ const isValid = (options, formElement, inputElement) => {
   }
 };
 
-const enableValidation = (options) => {
-  setEventListeners(popupFormProfileEdit, options);
-  setEventListeners(popupFormCardAdd, options);
+const enableValidation = (formItem, options) => {
+  setEventListeners(formItem, options);
 }
 
