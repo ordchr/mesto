@@ -121,16 +121,19 @@ const formSubmitHandler = (evt) => {
   closePopup(document.querySelector('.popup_opened'));
 }
 
-const prependCard = (placeName, placeLink) => {
+const createCard = (placeName, placeLink) => {
   const placeTempate = document.querySelector('#place').content;
   const place = placeTempate.cloneNode(true);
   const placeImage = place.querySelector('.place__image');
+  place.querySelector('.place__title-text').textContent=placeName;
   placeImage.src=placeLink;
   placeImage.alt=placeName;
-  place.querySelector('.place__title-text').textContent=placeName;
-  const places = document.querySelector('.places');
-  places.prepend(place);
+  return place;
+}
 
+const prependCard = (placeName, placeLink) => {
+  const places = document.querySelector('.places');
+  places.prepend(createCard(placeName, placeLink));
 }
 
 const formAddCardSubmitHandler = (evt) => {
