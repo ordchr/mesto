@@ -93,7 +93,7 @@ const formAddCardSubmitHandler = (evt) => {
   prependCard( popupInputPlaceName.value, popupInputImageLink.value );
   popupInputPlaceName.value = '';
   popupInputImageLink.value = '';
-  closePopup(document.querySelector('.popup_opened'));
+  closePopup(popupAddCard);
 }
 
 const formSubmitHandler = (evt) => {
