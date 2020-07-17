@@ -1,36 +1,43 @@
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
-const popupCloseButton = document.querySelector('.popup__button-close');
-const popup = document.querySelector('.popup');
 
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupEditProfile = document.querySelector('.popup_profile');
-//const popupContainerAddCard = popupAddCard.querySelector('.popup__container');
-//const popupCloseButtonAddCard = popupAddCard.querySelector('.popup__button-close');
 
-const editProfileForm = document.querySelector('.popup__form');
 const profileFullName = document.querySelector('.profile__full-name');
 const profileProfession = document.querySelector('.profile__profession');
 const popupFullNameValue = document.querySelector('.popup__input_full-name');
 const popupProfessionValue = document.querySelector('.popup__input_profession');
 
-const popupFormProfileEdit = document.querySelector('.popup__form-profile-edit');
-//const popupFormCardAdd = document.querySelector('.popup__form-card-add');
 // Форма для добавления карточки
-
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
 const popupInputImageLink = document.querySelector('.popup__input_place-image-link');
 
 // Превью изображения
 const popupPreview = document.querySelector('.popup-preview');
-const popupPreviewContainer = document.querySelector('.popup-preview__container');
 const popupPreviewImage = popupPreview.querySelector('.popup-preview__image');
-const popupPreviewCloseButton = document.querySelector('.popup-preview__button-close');
 
 const closePopup = (popupForClose) => {
   popupForClose.classList.add('popup_closed');
   popupForClose.classList.remove('popup_opened');
   document.removeEventListener('keydown', checkEscKeyForPopup);
+}
+
+const showPopup = (targetPopup, submitHandler) => {
+  targetPopup.classList.remove('popup_closed');
+  targetPopup.classList.add('popup_opened');
+
+  addEscEventListenerPopup();
+  targetPopup.addEventListener('click', () => closePopup(targetPopup));
+
+  const popupContainer = targetPopup.querySelector('.popup-container');
+  popupContainer.addEventListener('click', (evt) => {
+    // Остановим обработку события в контейнере, чтобы событие не попало в блок popup
+    evt.stopPropagation();
+  });
+
+  const popupCloseButton = targetPopup.querySelector('.popup__button-close');
+  popupCloseButton.addEventListener('click', () => closePopup(targetPopup));
 }
 
 const checkEscKeyForPopup = (evt) => {
@@ -73,7 +80,6 @@ places.addEventListener('click', (evt) => {
   }
 });
 
-
 const initialCards = [
     {
         name: 'Архыз',
@@ -107,23 +113,6 @@ const showPopupForm = (targetPopup, submitHandler) => {
   popupForm.addEventListener('submit', submitHandler);
   showPopup(targetPopup);
 };
-
-const showPopup = (targetPopup, submitHandler) => {
-  targetPopup.classList.remove('popup_closed');
-  targetPopup.classList.add('popup_opened');
-
-  addEscEventListenerPopup();
-  targetPopup.addEventListener('click', () => closePopup(targetPopup));
-
-  const popupContainer = targetPopup.querySelector('.popup-container');
-  popupContainer.addEventListener('click', (evt) => {
-    // Остановим обработку события в контейнере, чтобы событие не попало в блок popup
-    evt.stopPropagation();
-  });
-
-  const popupCloseButton = targetPopup.querySelector('.popup__button-close');
-  popupCloseButton.addEventListener('click', () => closePopup(targetPopup));
-}
 
 const formSubmitHandler = (evt) => {
   evt.preventDefault();

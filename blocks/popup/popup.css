@@ -10,7 +10,6 @@
 @import url(./_opened/popup_opened.css);
 @import url(./_closed/popup_closed.css);
 @import url(./__form/popup__form.css);
-@import url(./__form/_disabled/popup__form_disabled.css);
 @import url(./__input-error/popup__input-error.css);
 @import url(./__input-error/_active/popup__input-error_active.css);
 
