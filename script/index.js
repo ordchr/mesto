@@ -29,17 +29,6 @@ const showPopup = (targetPopup) => {
 
   // Перехватываем нажатие клавиши Esc для закрытия окна popup
   document.addEventListener('keydown', checkEscKeyForPopup);
-
-  targetPopup.addEventListener('click', () => closePopup(targetPopup));
-
-  const popupContainer = targetPopup.querySelector('.popup-container');
-  popupContainer.addEventListener('click', (evt) => {
-    // Остановим обработку события в контейнере, чтобы событие не попало в блок popup
-    evt.stopPropagation();
-  });
-
-  const popupCloseButton = targetPopup.querySelector('.popup__button-close');
-  popupCloseButton.addEventListener('click', () => closePopup(targetPopup));
 }
 
 const checkEscKeyForPopup = (evt) => {
@@ -122,6 +111,25 @@ editButton.addEventListener('click', () => {
 });
 
 addCardButton.addEventListener('click', () => showPopupForm(popupAddCard, formAddCardSubmitHandler));
+
+const setPopupHandlers = (targetPopup) => {
+  buttonClose = targetPopup.querySelector('.popup__button-close')
+  buttonClose.addEventListener('click', () => closePopup(targetPopup));
+
+  targetPopup.addEventListener('click', () => closePopup(targetPopup));
+  const popupContainer = targetPopup.querySelector('.popup-container');
+  popupContainer.addEventListener('click', (evt) => {
+    // Остановим обработку события в контейнере, чтобы событие не попало в блок popup
+    evt.stopPropagation();
+  });
+
+}
+
+setPopupHandlers(popupPreview);
+
+document.querySelectorAll('.popup').forEach(function(targetPopup) {
+  setPopupHandlers(targetPopup);
+});
 
 const loadDefaultCards = (initialCards) => {
   initialCards.forEach((item) => {
