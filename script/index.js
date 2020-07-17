@@ -139,6 +139,8 @@ const prependCard = (placeName, placeLink) => {
 const formAddCardSubmitHandler = (evt) => {
   evt.preventDefault();
   prependCard( popupInputPlaceName.value, popupInputImageLink.value );
+  popupInputPlaceName.value = '';
+  popupInputImageLink.value = '';
   closePopup(document.querySelector('.popup_opened'));
 }
 
