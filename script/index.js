@@ -67,19 +67,11 @@ places.addEventListener('click', (evt) => {
 });
 
 
-const showPopupForm = (targetPopup, submitHandler) => {
+const showPopupForm = (targetPopup) => {
   const popupForm = targetPopup.querySelector('.popup__form');
   validateForm(validateOptions, popupForm);
-  popupForm.addEventListener('submit', submitHandler);
   showPopup(targetPopup);
 };
-
-const formSubmitHandler = (evt) => {
-  evt.preventDefault();
-  profileFullName.textContent   = popupFullNameValue.value;
-  profileProfession.textContent = popupProfessionValue.value;
-  closePopup(document.querySelector('.popup_opened'));
-}
 
 const createCard = (placeName, placeLink) => {
   const placeTempate = document.querySelector('#place').content;
@@ -104,13 +96,23 @@ const formAddCardSubmitHandler = (evt) => {
   closePopup(document.querySelector('.popup_opened'));
 }
 
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  profileFullName.textContent   = popupFullNameValue.value;
+  profileProfession.textContent = popupProfessionValue.value;
+  closePopup(document.querySelector('.popup_opened'));
+}
+
+document.querySelector('.popup__form-card-add').addEventListener('submit', formAddCardSubmitHandler);
+document.querySelector('.popup__form-edit_profile').addEventListener('submit', formSubmitHandler);
+
 editButton.addEventListener('click', () => {
   popupFullNameValue.value   = profileFullName.textContent;
   popupProfessionValue.value = profileProfession.textContent;
-  showPopupForm(popupEditProfile, formSubmitHandler);
+  showPopupForm(popupEditProfile);
 });
 
-addCardButton.addEventListener('click', () => showPopupForm(popupAddCard, formAddCardSubmitHandler));
+addCardButton.addEventListener('click', () => showPopupForm(popupAddCard));
 
 const setPopupHandlers = (targetPopup) => {
   buttonClose = targetPopup.querySelector('.popup__button-close')
