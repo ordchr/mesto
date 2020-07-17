@@ -23,11 +23,13 @@ const closePopup = (popupForClose) => {
   document.removeEventListener('keydown', checkEscKeyForPopup);
 }
 
-const showPopup = (targetPopup, submitHandler) => {
+const showPopup = (targetPopup) => {
   targetPopup.classList.remove('popup_closed');
   targetPopup.classList.add('popup_opened');
 
-  addEscEventListenerPopup();
+  // Перехватываем нажатие клавиши Esc для закрытия окна popup
+  document.addEventListener('keydown', checkEscKeyForPopup);
+
   targetPopup.addEventListener('click', () => closePopup(targetPopup));
 
   const popupContainer = targetPopup.querySelector('.popup-container');
@@ -44,11 +46,6 @@ const checkEscKeyForPopup = (evt) => {
   if (evt.key === "Escape") {
     closePopup(document.querySelector('.popup_opened'));
   }
-}
-
-const addEscEventListenerPopup = () => {
-  // Перехватываем нажатие клавиши Esc для закрытия окна popup
-  document.addEventListener('keydown', checkEscKeyForPopup);
 }
 
 const showPopupPreview = (evt) => {
