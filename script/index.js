@@ -1,3 +1,5 @@
+import { Card } from './Card.js';
+
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
@@ -73,19 +75,11 @@ const showPopupForm = (targetPopup) => {
   showPopup(targetPopup);
 };
 
-const createCard = (placeName, placeLink) => {
-  const placeTempate = document.querySelector('#place').content;
-  const place = placeTempate.cloneNode(true);
-  const placeImage = place.querySelector('.place__image');
-  place.querySelector('.place__title-text').textContent=placeName;
-  placeImage.src=placeLink;
-  placeImage.alt=placeName;
-  return place;
-}
-
 const prependCard = (placeName, placeLink) => {
   const places = document.querySelector('.places');
-  places.prepend(createCard(placeName, placeLink));
+
+  const card = new Card(placeName, placeLink, '#place');
+  places.prepend(card.getCard());
 }
 
 const formAddCardSubmitHandler = (evt) => {
@@ -115,7 +109,7 @@ editButton.addEventListener('click', () => {
 addCardButton.addEventListener('click', () => showPopupForm(popupAddCard));
 
 const setPopupHandlers = (targetPopup) => {
-  buttonClose = targetPopup.querySelector('.popup__button-close')
+  const buttonClose = targetPopup.querySelector('.popup__button-close')
   buttonClose.addEventListener('click', () => closePopup(targetPopup));
 
   targetPopup.addEventListener('click', () => closePopup(targetPopup));
