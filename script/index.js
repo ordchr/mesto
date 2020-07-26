@@ -58,17 +58,6 @@ const validateOptions = {
 
 // Карточки
 const places = document.querySelector('.places');
-places.addEventListener('click', (evt) => {
-  const eventTarget = evt.target;
-  if (eventTarget.classList.contains('place__title-like')) {
-    eventTarget.classList.toggle('place__title-like_selected');
-  } else if (eventTarget.classList.contains('place__image-del')) {
-    eventTarget.parentElement.remove();
-  } else if ( eventTarget.classList.contains('place__image') ) {
-    showPopupPreview(eventTarget);
-  }
-});
-
 
 const showPopupForm = (targetPopup) => {
   const popupForm = targetPopup.querySelector('.popup__form');
@@ -78,9 +67,7 @@ const showPopupForm = (targetPopup) => {
 };
 
 const prependCard = (placeName, placeLink) => {
-  const places = document.querySelector('.places');
-
-  const card = new Card(placeName, placeLink, '#place');
+  const card = new Card(placeName, placeLink, '#place', showPopupPreview);
   places.prepend(card.getCard());
 }
 
@@ -113,7 +100,6 @@ addCardButton.addEventListener('click', () => showPopupForm(popupAddCard));
 const setPopupHandlers = (targetPopup) => {
   const buttonClose = targetPopup.querySelector('.popup__button-close')
   buttonClose.addEventListener('click', () => closePopup(targetPopup));
-
   targetPopup.addEventListener('click', () => closePopup(targetPopup));
   const popupContainer = targetPopup.querySelector('.popup-container');
   popupContainer.addEventListener('click', (evt) => {
@@ -138,7 +124,6 @@ const loadDefaultCards = (initialCards) => {
 loadDefaultCards(initialCards);
 
 document.querySelectorAll('.popup__form').forEach(function(formItem) {
-  //enableValidation(formItem, validateOptions);
   const formValidator = new FormValidator(validateOptions, formItem);
   formValidator.enableValidation();
 });
