@@ -1,4 +1,5 @@
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -71,7 +72,8 @@ places.addEventListener('click', (evt) => {
 
 const showPopupForm = (targetPopup) => {
   const popupForm = targetPopup.querySelector('.popup__form');
-  validateForm(validateOptions, popupForm);
+  const formValidator = new FormValidator(validateOptions, popupForm);
+  formValidator.validateForm();
   showPopup(targetPopup);
 };
 
@@ -136,6 +138,8 @@ const loadDefaultCards = (initialCards) => {
 loadDefaultCards(initialCards);
 
 document.querySelectorAll('.popup__form').forEach(function(formItem) {
-  enableValidation(formItem, validateOptions);
+  //enableValidation(formItem, validateOptions);
+  const formValidator = new FormValidator(validateOptions, formItem);
+  formValidator.enableValidation();
 });
 
