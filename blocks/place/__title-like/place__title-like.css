@@ -8,7 +8,7 @@
   width: 22px;
   height: 18px;
   background-color: #fff;
-
+  cursor: pointer;
 }
 
 .place__title-like:hover {

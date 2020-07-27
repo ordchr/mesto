@@ -6,7 +6,8 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupEditProfile = document.querySelector('.popup_profile');
-
+const popupFormCardAdd = document.querySelector('.popup__form-card-add');
+const popupFormProfileEdit = document.querySelector('.popup__form-edit_profile');
 const profileFullName = document.querySelector('.profile__full-name');
 const profileProfession = document.querySelector('.profile__profession');
 const popupFullNameValue = document.querySelector('.popup__input_full-name');
@@ -19,6 +20,7 @@ const popupInputImageLink = document.querySelector('.popup__input_place-image-li
 // Превью изображения
 const popupPreview = document.querySelector('.popup-preview');
 const popupPreviewImage = popupPreview.querySelector('.popup-preview__image');
+const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
 
 const closePopup = (popupForClose) => {
   popupForClose.classList.add('popup_closed');
@@ -42,7 +44,6 @@ const checkEscKeyForPopup = (evt) => {
 
 const showPopupPreview = (evt) => {
   popupPreviewImage.src = evt.src;
-  const popupPreviewDescription = popupPreview.querySelector('.popup-preview__description');
   popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
   showPopup(popupPreview);
 }
@@ -61,8 +62,7 @@ const places = document.querySelector('.places');
 
 const showPopupForm = (targetPopup) => {
   const popupForm = targetPopup.querySelector('.popup__form');
-  const formValidator = new FormValidator(validateOptions, popupForm);
-  formValidator.validateForm();
+  prepareClearForm(popupForm);
   showPopup(targetPopup);
 };
 
@@ -74,8 +74,6 @@ const prependCard = (placeName, placeLink) => {
 const formAddCardSubmitHandler = (evt) => {
   evt.preventDefault();
   prependCard( popupInputPlaceName.value, popupInputImageLink.value );
-  popupInputPlaceName.value = '';
-  popupInputImageLink.value = '';
   closePopup(popupAddCard);
 }
 
@@ -86,8 +84,8 @@ const formSubmitHandler = (evt) => {
   closePopup(document.querySelector('.popup_opened'));
 }
 
-document.querySelector('.popup__form-card-add').addEventListener('submit', formAddCardSubmitHandler);
-document.querySelector('.popup__form-edit_profile').addEventListener('submit', formSubmitHandler);
+popupFormCardAdd.addEventListener('submit', formAddCardSubmitHandler);
+popupFormProfileEdit.addEventListener('submit', formSubmitHandler);
 
 editButton.addEventListener('click', () => {
   popupFullNameValue.value   = profileFullName.textContent;
@@ -128,3 +126,10 @@ document.querySelectorAll('.popup__form').forEach(function(formItem) {
   formValidator.enableValidation();
 });
 
+// Очистить поля ввода формы и сделать кнопку неактивной
+const prepareClearForm = (targetForm) => {
+  targetForm.querySelectorAll('.popup__input').forEach((inputElement) => {
+    inputElement.value = '';
+  });
+  targetForm.querySelector('.popup__button-save').classList.add(validateOptions.inactiveButtonClass);
+}

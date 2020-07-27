@@ -26,16 +26,22 @@ export class Card {
     return card;
   }
 
+  _classImageClickLike(evt) {
+    evt.target.classList.toggle('place__title-like_selected');
+  }
+
+  _classImageClickDel(evt) {
+    evt.target.parentElement.remove();
+  }
+
+  _classShowPreview(evt) {
+    this._popupPreviewer(evt.target);
+  }
+
   _setEventListeners(card) {
-      card.querySelector('.place__title-like').addEventListener('click', (evt) => {
-          evt.target.classList.toggle('place__title-like_selected');
-      });
-      card.querySelector('.place__image-del').addEventListener('click', (evt) => {
-          evt.target.parentElement.remove();
-      });
-      card.querySelector('.place__image').addEventListener('click', (evt) => {
-          this._popupPreviewer(evt.target);
-      });
+      card.querySelector('.place__title-like').addEventListener('click', this._classImageClickLike);
+      card.querySelector('.place__image-del').addEventListener('click', this._classImageClickDel);
+      card.querySelector('.place__image').addEventListener('click', this._classShowPreview);
 
   }
 
