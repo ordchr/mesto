@@ -42,9 +42,9 @@ const checkEscKeyForPopup = (evt) => {
   }
 }
 
-const showPopupPreview = (evt) => {
-  popupPreviewImage.src = evt.src;
-  popupPreviewDescription.textContent = evt.parentElement.querySelector('.place__title-text').textContent;
+const showPopupPreview = (evtTarget) => {
+  popupPreviewImage.src = evtTarget.src;
+  popupPreviewDescription.textContent = evtTarget.parentElement.querySelector('.place__title-text').textContent;
   showPopup(popupPreview);
 }
 
@@ -60,9 +60,17 @@ const validateOptions = {
 // Карточки
 const places = document.querySelector('.places');
 
-const showPopupForm = (targetPopup) => {
+// Установка слушателей для валидации форм
+const formCardAddValidator = new FormValidator(validateOptions, popupFormCardAdd);
+formCardAddValidator.enableValidation();
+const formProfileEditValidator = new FormValidator(validateOptions, popupFormProfileEdit);
+formProfileEditValidator.enableValidation();
+
+const showPopupForm = (targetPopup, formCardAddValidator) => {
   const popupForm = targetPopup.querySelector('.popup__form');
-  prepareClearForm(popupForm);
+  if (formCardAddValidator) {
+    formCardAddValidator.prepareClearForm();
+  }
   showPopup(targetPopup);
 };
 
@@ -93,7 +101,7 @@ editButton.addEventListener('click', () => {
   showPopupForm(popupEditProfile);
 });
 
-addCardButton.addEventListener('click', () => showPopupForm(popupAddCard));
+addCardButton.addEventListener('click', () => showPopupForm(popupAddCard, formCardAddValidator));
 
 const setPopupHandlers = (targetPopup) => {
   const buttonClose = targetPopup.querySelector('.popup__button-close')
@@ -121,15 +129,3 @@ const loadDefaultCards = (initialCards) => {
 
 loadDefaultCards(initialCards);
 
-document.querySelectorAll('.popup__form').forEach(function(formItem) {
-  const formValidator = new FormValidator(validateOptions, formItem);
-  formValidator.enableValidation();
-});
-
-// Очистить поля ввода формы и сделать кнопку неактивной
-const prepareClearForm = (targetForm) => {
-  targetForm.querySelectorAll('.popup__input').forEach((inputElement) => {
-    inputElement.value = '';
-  });
-  targetForm.querySelector('.popup__button-save').classList.add(validateOptions.inactiveButtonClass);
-}

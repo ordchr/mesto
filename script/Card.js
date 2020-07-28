@@ -4,7 +4,6 @@ export class Card {
     this._link = link;
     this._cardSelector = cardSelector;
     this._popupPreviewer = popupPreviewer;
-
   }
 
   _getTemplate() {
@@ -41,8 +40,7 @@ export class Card {
   _setEventListeners(card) {
       card.querySelector('.place__title-like').addEventListener('click', this._classImageClickLike);
       card.querySelector('.place__image-del').addEventListener('click', this._classImageClickDel);
-      card.querySelector('.place__image').addEventListener('click', this._classShowPreview);
-
+      card.querySelector('.place__image').addEventListener('click', this._classShowPreview.bind(this));
   }
 
   getCard() {

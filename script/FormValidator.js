@@ -10,6 +10,9 @@ export class FormValidator {
     this._inputList = Array.from(validatedForm.querySelectorAll(this._inputSelector))
     this._buttonElement = validatedForm.querySelector(this._submitButtonSelector);
 
+    this._formInputs = validatedForm.querySelectorAll('.popup__input');
+    this._formButtonSave = validatedForm.querySelector('.popup__button-save');
+
   }
 
   _setEventListeners() {
@@ -78,6 +81,14 @@ export class FormValidator {
   
   enableValidation() {
     this._setEventListeners();
+  }
+
+  // Очистить поля ввода формы и сделать кнопку неактивной
+  prepareClearForm() {
+    this._formInputs.forEach((inputElement) => {
+      inputElement.value = '';
+    });
+    this._formButtonSave.classList.add(this._inactiveButtonClass);
   }
 
 }
