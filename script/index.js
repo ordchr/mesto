@@ -1,4 +1,5 @@
 import { Card } from './Card.js';
+import { Section } from './Section.js';
 import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initial-cards.js';
 
@@ -58,9 +59,6 @@ const validateOptions = {
   errorClass: 'popup__input-error_active'
 };
 
-// Карточки
-const places = document.querySelector('.places');
-
 // Установка слушателей для валидации форм
 const formCardAddValidator = new FormValidator(validateOptions, popupFormCardAdd);
 formCardAddValidator.enableValidation();
@@ -75,14 +73,20 @@ const showPopupForm = (targetPopup, formCardAddValidator) => {
   showPopup(targetPopup);
 };
 
-const prependCard = (placeName, placeLink) => {
-  const card = new Card(placeName, placeLink, '#place', showPopupPreview);
-  places.prepend(card.getCard());
-}
-
 const formAddCardSubmitHandler = (evt) => {
   evt.preventDefault();
-  prependCard( popupInputPlaceName.value, popupInputImageLink.value );
+  const section = new Section(
+    {
+      items: [{name: popupInputPlaceName.value, link: popupInputImageLink.value}],
+      renderer: (placeName, placeLink) => {
+        const card = new Card(placeName, placeLink, '#place', showPopupPreview);
+        return card.getCard();
+      }
+    },
+    '.places'
+  );
+  section.renderAll();
+
   closePopup(popupAddCard);
 }
 
@@ -122,11 +126,24 @@ document.querySelectorAll('.popup').forEach(function(targetPopup) {
   setPopupHandlers(targetPopup);
 });
 
-const loadDefaultCards = (initialCards) => {
-  initialCards.forEach((item) => {
-    prependCard(item.name, item.link);
-  });
-}
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (placeName, placeLink) => {
+      const card = new Card(placeName, placeLink, '#place', showPopupPreview);
+      return card.getCard();
+    }
+  },
+  '.places'
+);
 
-loadDefaultCards(initialCards);
+section.renderAll();
+
+// const loadDefaultCards = (initialCards) => {
+  // initialCards.forEach((item) => {
+    // prependCard(item.name, item.link);
+  // });
+// }
+
+// loadDefaultCards(initialCards);
 
