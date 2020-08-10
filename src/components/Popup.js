@@ -5,7 +5,7 @@ export class Popup {
     this._popupContainer = this._popup.querySelector('.popup-container');
   }
 
-  _checkEscKeyForPopup = (evt) => {
+  _checkEscKeyForPopup(evt) {
     if (evt.key === "Escape") {
       this.close();
     }

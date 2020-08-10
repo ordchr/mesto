@@ -51,7 +51,7 @@ export class FormValidator {
     })
   }
 
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError(inputElement, errorMessage) {
     // Находим элемент ошибки внутри самой функции
     const errorElement = this._validatedForm.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
@@ -60,7 +60,7 @@ export class FormValidator {
   };
 
 
-  _hideInputError = (inputElement) => {
+  _hideInputError(inputElement) {
     // Находим элемент ошибки
     const errorElement = this._validatedForm.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
@@ -68,7 +68,7 @@ export class FormValidator {
     errorElement.textContent = '';
   };
 
-  _validateForm = () => {
+  _validateForm() {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       this._isValid(inputElement);
