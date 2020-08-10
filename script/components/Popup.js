@@ -26,7 +26,6 @@ export class Popup {
   }
 
   close() {
-    console.log(this._popup);
     this._popup.classList.remove('popup_opened');
     this._popup.classList.add('popup_closed');
     this._removeHandleEscClose();
@@ -40,7 +39,7 @@ export class Popup {
     // Закрытие по кнопке
     this._buttonClose.addEventListener('click', _ => this.close());
     // Закрытие по оверлею
-    this._popup.addEventListener('click', () => this.close());
+    this._popup.addEventListener('click', _ => this.close());
   }
 
 }
