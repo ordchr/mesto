@@ -44,16 +44,18 @@ const cardRenderer = (placeName, placeLink) => {
   return card.getCard();
 }
 
-const formAddCardSubmitHandler = () => {
-  const section = new Section(
-    {
-      items: [{name: popupInputPlaceName.value, link: popupInputImageLink.value}],
-      renderer: cardRenderer,
-    },
-    '.places'
-  );
-  section.renderAll();
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: cardRenderer,
+  },
+  '.places'
+);
 
+section.renderAll();
+
+const formAddCardSubmitHandler = () => {
+  section.addItem(cardRenderer(popupInputPlaceName.value, popupInputImageLink.value));
 }
 
 const userInfo = new UserInfo({
@@ -81,13 +83,4 @@ addCardButton.addEventListener('click', () => {
   popupAddCard.open();
 });
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: cardRenderer,
-  },
-  '.places'
-);
-
-section.renderAll();
 
