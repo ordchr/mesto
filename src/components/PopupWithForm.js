@@ -11,16 +11,18 @@ export class PopupWithForm extends Popup {
 
   // Метод собирает данные всех полей формы
   _getInputValues() {
-    return Array.from(this._formInputsValues).map((item) => {
-      return {
-        name: item.name,
-        value: item.value,
-      }
-    })
+    const formValues = {};
+    this._formInputsValues.forEach( input => {
+      formValues[input.name] = input.value;
+    });
+    return formValues;
   }
 
   setEventListeners() {
-    this._form.addEventListener('submit', this._cbFormSubmit);
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._cbFormSubmit(this._getInputValues());
+    });
     this._form.addEventListener('submit', _ => this.close());
     super.setEventListeners();
   }

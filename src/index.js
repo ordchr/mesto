@@ -44,8 +44,7 @@ const cardRenderer = (placeName, placeLink) => {
   return card.getCard();
 }
 
-const formAddCardSubmitHandler = (evt) => {
-  evt.preventDefault();
+const formAddCardSubmitHandler = () => {
   const section = new Section(
     {
       items: [{name: popupInputPlaceName.value, link: popupInputImageLink.value}],
@@ -62,9 +61,8 @@ const userInfo = new UserInfo({
   userInfoSelector: '.profile__profession'
 });
 
-const formSubmitHandler = (evt) => {
-  evt.preventDefault();
-  userInfo.setUserInfo(popupFullNameValue.value, popupProfessionValue.value);
+const formSubmitHandler = (inputValues) => {
+  userInfo.setUserInfo(inputValues);
 }
 
 const popupProfileEdit = new PopupWithForm('.popup_profile', formSubmitHandler);
