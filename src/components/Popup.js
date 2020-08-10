@@ -3,6 +3,7 @@ export class Popup {
     this._popup = document.querySelector(popupSelector);
     this._buttonClose = this._popup.querySelector('.popup__button-close')
     this._popupContainer = this._popup.querySelector('.popup-container');
+    this._checkEscKeyForPopup = this._checkEscKeyForPopup.bind(this);
   }
 
   _checkEscKeyForPopup(evt) {
@@ -12,7 +13,7 @@ export class Popup {
   }
 
   _handleEscClose() {
-    document.addEventListener('keydown', this._checkEscKeyForPopup.bind(this));
+    document.addEventListener('keydown', this._checkEscKeyForPopup);
   }
 
   _removeHandleEscClose() {
