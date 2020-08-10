@@ -1,9 +1,9 @@
 export class Card {
-  constructor(title, link, cardSelector, popupPreviewer) {
+  constructor(title, link, cardSelector, handleCardClick) {
     this._title = title;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._popupPreviewer = popupPreviewer;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -33,14 +33,14 @@ export class Card {
     evt.target.parentElement.remove();
   }
 
-  _classShowPreview(evt) {
-    this._popupPreviewer(evt.target);
+  _classShowPreview() {
+    this._handleCardClick({ link: this._link, title: this._title });
   }
 
   _setEventListeners(card) {
       card.querySelector('.place__title-like').addEventListener('click', this._classImageClickLike);
       card.querySelector('.place__image-del').addEventListener('click', this._classImageClickDel);
-      card.querySelector('.place__image').addEventListener('click', this._classShowPreview.bind(this));
+      card.querySelector('.place__image').addEventListener('click', () => this._classShowPreview());
   }
 
   getCard() {
