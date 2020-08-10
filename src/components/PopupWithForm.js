@@ -11,7 +11,6 @@ export class PopupWithForm extends Popup {
 
   // Метод собирает данные всех полей формы
   _getInputValues() {
-    console.log(this._formInputsValues);
     return Array.from(this._formInputsValues).map((item) => {
       return {
         name: item.name,

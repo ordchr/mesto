@@ -12,7 +12,7 @@ export class Popup {
   }
 
   _handleEscClose() {
-    document.addEventListener('keydown', this._checkEscKeyForPopup);
+    document.addEventListener('keydown', this._checkEscKeyForPopup.bind(this));
   }
 
   _removeHandleEscClose() {
