@@ -5,6 +5,7 @@ import { PopupWithForm } from './components/PopupWithForm.js';
 import { PopupWithImage } from './components/PopupWithImage.js';
 import { FormValidator } from './components/FormValidator.js';
 import { UserInfo } from './components/UserInfo.js';
+import { Api } from './components/Api.js';
 import { initialCards } from './initial-cards.js';
 
 const editButton = document.querySelector('.profile__edit-button');
@@ -37,6 +38,11 @@ formProfileEditValidator.enableValidation();
 const popupPreview = new PopupWithImage('.popup-preview');
 popupPreview.setEventListeners();
 
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14',
+  headersAuthorization: 'e334a560-7923-4c10-ad97-03986e985b68',
+});
+
 const cardRenderer = (placeName, placeLink) => {
   const card = new Card(placeName, placeLink, '#place', (item) => {
     popupPreview.open(item);
@@ -61,6 +67,14 @@ const formAddCardSubmitHandler = () => {
 const userInfo = new UserInfo({
   userNameSelector: '.profile__full-name',
   userInfoSelector: '.profile__profession'
+}, api);
+
+userInfo.loadUserInfo(({name, about}) => {
+  console.log(name);
+  const inputFullName = document.querySelector('.profile__full-name');
+  const inputProfession = document.querySelector('.profile__profession');
+  inputFullName.textContent = name;
+  inputProfession.textContent = about;
 });
 
 const formSubmitHandler = (inputValues) => {
@@ -71,6 +85,10 @@ const popupProfileEdit = new PopupWithForm('.popup_profile', formSubmitHandler);
 popupProfileEdit.setEventListeners();
 
 editButton.addEventListener('click', () => {
+  // userInfo.getUserInfo({
+    // inputSelectorFullName: '.popup__input_full-name',
+    // inputSelectorProfession: '.popup__input_profession',
+  // });
   popupFullNameValue.value   = userInfo.getUserInfo().userName;
   popupProfessionValue.value = userInfo.getUserInfo().userInfo;
   popupProfileEdit.open();
