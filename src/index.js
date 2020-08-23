@@ -62,7 +62,9 @@ api.getInitialCards().then((items) => {
 });
 
 const formAddCardSubmitHandler = () => {
-  section.addItem(cardRenderer(popupInputPlaceName.value, popupInputImageLink.value));
+  api.addCard({name: popupInputPlaceName.value, link: popupInputImageLink.value}).then(_ => {
+    section.addItem(cardRenderer(popupInputPlaceName.value, popupInputImageLink.value));
+  });
 }
 
 const userInfo = new UserInfo({

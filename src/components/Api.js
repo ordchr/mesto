@@ -46,6 +46,9 @@ export class Api {
     return this._call('GET', 'cards');
   }
 
+  addCard(body) {
+    return this._call('POST', 'cards', body);
+  }
 
 
 }
