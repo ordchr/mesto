@@ -79,7 +79,9 @@ api.getUserInfo().then(({name, about, avatar}) => {
 });
 
 const formSubmitHandler = (inputValues) => {
-  userInfo.setUserInfo(inputValues);
+  api.updateUserInfo({name: inputValues.name, about: inputValues.profession}).then((user) => {
+    userInfo.setUserInfo({name: user.name, profession: user.about});
+  });
 }
 
 const popupProfileEdit = new PopupWithForm('.popup_profile', formSubmitHandler);

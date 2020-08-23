@@ -7,14 +7,18 @@ export class Api {
 
   // другие методы работы с API
 
-  _call(method) {
-    return fetch(`${this._baseUrl}/${method}`, 
-      {
-        headers: {
-          authorization: this._headersAuthorization
-        }
-      })
-      .then(
+  _call(method, action, body) {
+    const requestData = {
+      method: method,
+      headers: {
+        authorization: this._headersAuthorization,
+        'Content-Type': 'application/json'
+      },
+    };
+    if (body) {
+      requestData.body = JSON.stringify(body);
+    }
+    return fetch(`${this._baseUrl}/${action}`, requestData).then(
         res => {
           console.log(res.ok);
           if (res.ok) {
@@ -31,12 +35,17 @@ export class Api {
   }
 
   getUserInfo() {
-    return this._call('users/me');
+    return this._call('GET', 'users/me');
+  }
+
+  updateUserInfo(body) {
+    return this._call('PATCH', 'users/me', body);
   }
 
   getInitialCards() {
-    return this._call('cards');
+    return this._call('GET', 'cards');
   }
+
 
 
 }
