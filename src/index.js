@@ -52,13 +52,14 @@ const cardRenderer = (placeName, placeLink) => {
 
 const section = new Section(
   {
-    items: initialCards,
     renderer: cardRenderer,
   },
   '.places'
 );
 
-section.renderAll();
+api.getInitialCards().then((items) => {
+  section.renderAll(items);
+});
 
 const formAddCardSubmitHandler = () => {
   section.addItem(cardRenderer(popupInputPlaceName.value, popupInputImageLink.value));
@@ -67,10 +68,9 @@ const formAddCardSubmitHandler = () => {
 const userInfo = new UserInfo({
   userNameSelector: '.profile__full-name',
   userInfoSelector: '.profile__profession'
-}, api);
+});
 
-userInfo.loadUserInfo(({name, about, avatar}) => {
-  console.log(name);
+api.getUserInfo().then(({name, about, avatar}) => {
   const inputFullName = document.querySelector('.profile__full-name');
   const inputProfession = document.querySelector('.profile__profession');
   inputFullName.textContent = name;

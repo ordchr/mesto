@@ -5,13 +5,9 @@ export class Api {
     this._call = this._call.bind(this);
   }
 
-  getInitialCards() {
-    // ...
-  }
-
   // другие методы работы с API
 
-  _call(action, method) {
+  _call(method) {
     return fetch(`${this._baseUrl}/${method}`, 
       {
         headers: {
@@ -26,15 +22,21 @@ export class Api {
           }
           return Promise.reject(`Ошибка: ${res.status}`);
         }
-      ).then(
-      data => {
-        console.log(data);
-        action(data);
-      });
+      );
+      // .then(
+      // data => {
+        // console.log(data);
+        // action(data);
+      // });
   }
 
-  getUserInfo(renderFunction) {
-    return this._call(renderFunction, 'users/me');
+  getUserInfo() {
+    return this._call('users/me');
   }
+
+  getInitialCards() {
+    return this._call('cards');
+  }
+
 
 }
