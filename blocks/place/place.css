@@ -6,6 +6,7 @@
 @import url(./__title-like-count/place__title-like-count.css);
 @import url(./__title-like/_selected/place__title-like_selected.css);
 @import url(./__image-del/place__image-del.css);
+@import url(./__image-del/_hidden/place__image-del_hidden.css);
 
 
 .place {

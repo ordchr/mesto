@@ -7,6 +7,7 @@ import { FormValidator } from './components/FormValidator.js';
 import { UserInfo } from './components/UserInfo.js';
 import { Api } from './components/Api.js';
 import { initialCards } from './initial-cards.js';
+import { apiSettings } from './constants.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -43,8 +44,8 @@ const api = new Api({
   headersAuthorization: 'e334a560-7923-4c10-ad97-03986e985b68',
 });
 
-const cardRenderer = (placeName, placeLink, likes) => {
-  const card = new Card(placeName, placeLink, likes, '#place', (item) => {
+const cardRenderer = (placeName, placeLink, likes, ownerId) => {
+  const card = new Card(placeName, placeLink, likes, ownerId, '#place', (item) => {
     popupPreview.open(item);
   });
   return card.getCard();

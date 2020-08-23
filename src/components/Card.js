@@ -1,8 +1,11 @@
+import { apiSettings } from '../constants.js';
+
 export class Card {
-  constructor(title, link, likes, cardSelector, handleCardClick) {
+  constructor(title, link, likes, ownerId, cardSelector, handleCardClick) {
     this._title = title;
     this._link = link;
     this._likes = likes;
+    this._ownerId = ownerId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -20,6 +23,9 @@ export class Card {
     const cardImage = card.querySelector('.place__image');
     card.querySelector('.place__title-text').textContent=this._title;
     card.querySelector('.place__title-like-count').textContent=this._likes;
+    if (apiSettings.myId !== this._ownerId) {
+      card.querySelector('.place__image-del').classList.add('place__image-del_hidden');
+    }
     cardImage.src=this._link;
     cardImage.alt=this._title;
     this._setEventListeners(card);
