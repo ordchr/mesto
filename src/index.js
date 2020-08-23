@@ -43,8 +43,8 @@ const api = new Api({
   headersAuthorization: 'e334a560-7923-4c10-ad97-03986e985b68',
 });
 
-const cardRenderer = (placeName, placeLink) => {
-  const card = new Card(placeName, placeLink, '#place', (item) => {
+const cardRenderer = (placeName, placeLink, likes) => {
+  const card = new Card(placeName, placeLink, likes, '#place', (item) => {
     popupPreview.open(item);
   });
   return card.getCard();

@@ -6,7 +6,7 @@ export class Section {
 
   renderAll(items) {
     items.forEach((item) => {
-      const element = this._renderer( item.name, item.link );
+      const element = this._renderer( item.name, item.link, item.likes.length );
       this.addItem(element);
     });
     
