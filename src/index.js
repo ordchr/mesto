@@ -69,12 +69,13 @@ const userInfo = new UserInfo({
   userInfoSelector: '.profile__profession'
 }, api);
 
-userInfo.loadUserInfo(({name, about}) => {
+userInfo.loadUserInfo(({name, about, avatar}) => {
   console.log(name);
   const inputFullName = document.querySelector('.profile__full-name');
   const inputProfession = document.querySelector('.profile__profession');
   inputFullName.textContent = name;
   inputProfession.textContent = about;
+  document.querySelector('.profile__photo').src = avatar;
 });
 
 const formSubmitHandler = (inputValues) => {
