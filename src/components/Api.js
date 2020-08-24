@@ -53,9 +53,13 @@ export class Api {
   deleteCard(cardId) {
     return this._call('DELETE', `cards/${cardId}`);
   }
-  // likeCard() {
-    // return this._call('PUT', 'cards/likes', body);
-  // }
 
+  likeCard(cardId) {
+    return this._call('PUT', `cards/likes/${cardId}`);
+  }
+
+  dislikeCard(cardId) {
+    return this._call('DELETE', `cards/likes/${cardId}`);
+  }
 
 }

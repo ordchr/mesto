@@ -1,16 +1,17 @@
 import { apiSettings } from '../constants.js';
 
 export class Card {
-  constructor({data, handleCardClick, handleDeleteIconClick}, cardSelector) {
+  constructor({data, handleCardClick, handleDeleteIconClick, handleLikeClick}, cardSelector) {
     const { placeName, placeLink, likes, ownerId, cardId} = data;
     this.title = placeName;
     this.link = placeLink;
-    this._likes = likes;
+    this.likes = likes;
     this._ownerId = ownerId;
     this.cardId = cardId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick.bind(this);
     this._handleCardDelete = handleDeleteIconClick.bind(this);
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getTemplate() {
@@ -25,9 +26,12 @@ export class Card {
     const card = this._getTemplate();
     const cardImage = card.querySelector('.place__image');
     card.querySelector('.place__title-text').textContent=this.title;
-    card.querySelector('.place__title-like-count').textContent=this._likes;
+    card.querySelector('.place__title-like-count').textContent=this.likes.length;
     if (apiSettings.myId !== this._ownerId) {
       card.querySelector('.place__image-del').classList.add('place__image-del_hidden');
+    }
+    if (this.likedMe()) {
+      card.querySelector('.place__title-like').classList.add('place__title-like_selected');
     }
     cardImage.src=this.link;
     cardImage.alt=this.title;
@@ -37,7 +41,6 @@ export class Card {
   }
 
   _classImageClickLike(evt) {
-    evt.target.classList.toggle('place__title-like_selected');
   }
 
   // _classImageClickDel(evt) {
@@ -51,9 +54,16 @@ export class Card {
   }
 
   _setEventListeners(card) {
-      card.querySelector('.place__title-like').addEventListener('click', this._classImageClickLike);
+      card.querySelector('.place__title-like').addEventListener('click', this._handleLikeClick);
       card.querySelector('.place__image-del').addEventListener('click', this._handleCardDelete);
       card.querySelector('.place__image').addEventListener('click', () => this._classShowPreview());
+  }
+
+  likedMe() {
+    console.log(this.likes);
+    return this.likes.some((element) => {
+      return element._id === apiSettings.myId ? 1 : 0;
+    })
   }
 
   getCard() {

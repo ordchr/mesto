@@ -69,6 +69,23 @@ const cardRenderer = (placeName, placeLink, likes, ownerId, cardId) => {
           );
         };
       },
+      handleLikeClick: (evt) => {
+        if (card.likedMe()) {
+          api.dislikeCard(card.cardId)
+            .then(data => {
+              card.likes = data.likes;
+              evt.target.parentElement.querySelector('.place__title-like-count').textContent = card.likes.length;
+              evt.target.classList.toggle('place__title-like_selected');
+            });
+        } else {
+          api.likeCard(card.cardId)
+            .then(data => {
+              card.likes = data.likes;
+              evt.target.parentElement.querySelector('.place__title-like-count').textContent = card.likes.length;
+              evt.target.classList.toggle('place__title-like_selected');
+            });
+        }
+      },
     },
     '#place',
   );
@@ -93,7 +110,7 @@ const formAddCardSubmitHandler = () => {
         cardRenderer(
           data.name,
           data.link,
-          data.likes.length,
+          data.likes,
           data.owner._id,
           data._id
         )
