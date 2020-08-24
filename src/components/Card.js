@@ -1,13 +1,16 @@
 import { apiSettings } from '../constants.js';
 
 export class Card {
-  constructor(title, link, likes, ownerId, cardSelector, handleCardClick) {
-    this._title = title;
-    this._link = link;
+  constructor({data, handleCardClick, handleDeleteIconClick}, cardSelector) {
+    const { placeName, placeLink, likes, ownerId, cardId} = data;
+    this.title = placeName;
+    this.link = placeLink;
     this._likes = likes;
     this._ownerId = ownerId;
+    this.cardId = cardId;
     this._cardSelector = cardSelector;
-    this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick.bind(this);
+    this._handleCardDelete = handleDeleteIconClick.bind(this);
   }
 
   _getTemplate() {
@@ -21,13 +24,13 @@ export class Card {
   _makeCard()  {
     const card = this._getTemplate();
     const cardImage = card.querySelector('.place__image');
-    card.querySelector('.place__title-text').textContent=this._title;
+    card.querySelector('.place__title-text').textContent=this.title;
     card.querySelector('.place__title-like-count').textContent=this._likes;
     if (apiSettings.myId !== this._ownerId) {
       card.querySelector('.place__image-del').classList.add('place__image-del_hidden');
     }
-    cardImage.src=this._link;
-    cardImage.alt=this._title;
+    cardImage.src=this.link;
+    cardImage.alt=this.title;
     this._setEventListeners(card);
 
     return card;
@@ -37,17 +40,19 @@ export class Card {
     evt.target.classList.toggle('place__title-like_selected');
   }
 
-  _classImageClickDel(evt) {
-    evt.target.parentElement.remove();
-  }
+  // _classImageClickDel(evt) {
+    // console.log(this._cardId);
+    // console.log(this._handleCardDelete);
+    // this._handleCardDelete(this._cardId, );
+  // }
 
   _classShowPreview() {
-    this._handleCardClick({ link: this._link, title: this._title });
+    this._handleCardClick({ link: this.link, title: this.title });
   }
 
   _setEventListeners(card) {
       card.querySelector('.place__title-like').addEventListener('click', this._classImageClickLike);
-      card.querySelector('.place__image-del').addEventListener('click', this._classImageClickDel);
+      card.querySelector('.place__image-del').addEventListener('click', this._handleCardDelete);
       card.querySelector('.place__image').addEventListener('click', () => this._classShowPreview());
   }
 

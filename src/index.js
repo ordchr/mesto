@@ -8,6 +8,7 @@ import { UserInfo } from './components/UserInfo.js';
 import { Api } from './components/Api.js';
 import { initialCards } from './initial-cards.js';
 import { apiSettings } from './constants.js';
+import { PopupWithConfirm } from './components/PopupWithConfirm.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -44,10 +45,33 @@ const api = new Api({
   headersAuthorization: 'e334a560-7923-4c10-ad97-03986e985b68',
 });
 
-const cardRenderer = (placeName, placeLink, likes, ownerId) => {
-  const card = new Card(placeName, placeLink, likes, ownerId, '#place', (item) => {
-    popupPreview.open(item);
-  });
+const popupWithConfirm = new PopupWithConfirm('.popup_confirm');
+popupWithConfirm.setEventListeners();
+
+const cardRenderer = (placeName, placeLink, likes, ownerId, cardId) => {
+  const card = new Card(
+    {
+      data: {
+        placeName: placeName,
+        placeLink: placeLink,
+        likes: likes,
+        ownerId,
+        cardId,
+      },
+      handleCardClick: () => {
+        popupPreview.open({link: card.link, title: card.title});
+      },
+      handleDeleteIconClick: (evt) => {
+        popupWithConfirm.open();
+        popupWithConfirm.setConfirmAction = () => {
+          api.deleteCard(card.cardId).then(
+            evt.target.parentElement.remove()
+          );
+        };
+      },
+    },
+    '#place',
+  );
   return card.getCard();
 }
 
@@ -63,10 +87,20 @@ api.getInitialCards().then((items) => {
 });
 
 const formAddCardSubmitHandler = () => {
-  api.addCard({name: popupInputPlaceName.value, link: popupInputImageLink.value}).then(_ => {
-    section.addItem(cardRenderer(popupInputPlaceName.value, popupInputImageLink.value));
-  });
-}
+  api.addCard({name: popupInputPlaceName.value, link: popupInputImageLink.value})
+    .then(data => {
+      section.addItem(
+        cardRenderer(
+          data.name,
+          data.link,
+          data.likes.length,
+          data.owner._id,
+          data._id
+        )
+      );
+    })
+};
+
 
 const userInfo = new UserInfo({
   userNameSelector: '.profile__full-name',
