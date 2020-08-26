@@ -15,6 +15,7 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 const popupFormCardAdd = document.querySelector('.popup__form-card-add');
 const popupFormProfileEdit = document.querySelector('.popup__form-edit_profile');
+const popupFormUpdateAvatar = document.querySelector('.popup__form-update-avatar');
 const popupFullNameValue = document.querySelector('.popup__input_full-name');
 const popupProfessionValue = document.querySelector('.popup__input_profession');
 const popupProfilePhoto = document.querySelector('.profile__photo');
@@ -37,6 +38,8 @@ const formCardAddValidator = new FormValidator(validateOptions, popupFormCardAdd
 formCardAddValidator.enableValidation();
 const formProfileEditValidator = new FormValidator(validateOptions, popupFormProfileEdit);
 formProfileEditValidator.enableValidation();
+const formUpdateAvatarValidator = new FormValidator(validateOptions, popupFormUpdateAvatar);
+formUpdateAvatarValidator.enableValidation();
 
 const popupPreview = new PopupWithImage('.popup-preview');
 popupPreview.setEventListeners();
@@ -181,10 +184,6 @@ const popupProfileEdit = new PopupWithForm('.popup_profile', formSubmitHandler);
 popupProfileEdit.setEventListeners();
 
 editButton.addEventListener('click', () => {
-  // userInfo.getUserInfo({
-    // inputSelectorFullName: '.popup__input_full-name',
-    // inputSelectorProfession: '.popup__input_profession',
-  // });
   popupFullNameValue.value   = userInfo.getUserInfo().userName;
   popupProfessionValue.value = userInfo.getUserInfo().userInfo;
   popupProfileEdit.open();

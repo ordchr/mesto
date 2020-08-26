@@ -43,12 +43,6 @@ export class Card {
   _classImageClickLike(evt) {
   }
 
-  // _classImageClickDel(evt) {
-    // console.log(this._cardId);
-    // console.log(this._handleCardDelete);
-    // this._handleCardDelete(this._cardId, );
-  // }
-
   _classShowPreview() {
     this._handleCardClick({ link: this.link, title: this.title });
   }
