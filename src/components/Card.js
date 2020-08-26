@@ -60,7 +60,6 @@ export class Card {
   }
 
   likedMe() {
-    console.log(this.likes);
     return this.likes.some((element) => {
       return element._id === apiSettings.myId ? 1 : 0;
     })

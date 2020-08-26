@@ -104,7 +104,8 @@ api.getInitialCards().then((items) => {
   section.renderAll(items);
 });
 
-const formAddCardSubmitHandler = () => {
+const formAddCardSubmitHandler = (evt, popupCloseFunc) => {
+  evt.submitter.textContent = 'Сохранение...';
   api.addCard({name: popupInputPlaceName.value, link: popupInputImageLink.value})
     .then(data => {
       section.addItem(
@@ -117,6 +118,10 @@ const formAddCardSubmitHandler = () => {
         )
       );
     })
+    .finally(() => {
+      evt.submitter.textContent = 'Сохранить';
+      popupCloseFunc();
+    });
 };
 
 
@@ -133,9 +138,18 @@ api.getUserInfo().then(({name, about, avatar}) => {
   popupProfilePhoto.style.backgroundImage = `url(${avatar})`;
 });
 
-const formSubmitHandler = (inputValues) => {
-  api.updateUserInfo({name: inputValues.name, about: inputValues.profession}).then((user) => {
-    userInfo.setUserInfo({name: user.name, profession: user.about});
+const formSubmitHandler = (evt, popupCloseFunc, inputValues) => {
+  evt.submitter.textContent = 'Сохранение...';
+  api.updateUserInfo({
+    name: inputValues.name,
+    about: inputValues.profession
+  })
+    .then((user) => {
+      userInfo.setUserInfo({name: user.name, profession: user.about});
+    })
+  .finally(() => {
+    evt.submitter.textContent = 'Сохранить';
+    popupCloseFunc();
   });
 }
 
@@ -152,13 +166,19 @@ editButton.addEventListener('click', () => {
   popupProfileEdit.open();
 });
 
-const popupAvatarEdit = new PopupWithForm('.popup_update-avatar', (inputValues) => {
-  console.log(inputValues['popup__input_update-avatar-link']);
-  api.updateAvatar({avatar: inputValues['popup__input_update-avatar-link']})
+const popupAvatarEdit = new PopupWithForm('.popup_update-avatar', (evt, popupCloseFunc, inputValues) => {
+  evt.submitter.textContent = 'Сохранение...';
+  api.updateAvatar({
+    avatar: inputValues['popup__input_update-avatar-link']
+  })
     .then((user) => {
-      console.log(user.avatar);
       popupProfilePhoto.style.backgroundImage = `url(${user.avatar})`;
+    })
+  .finally(() => {
+    evt.submitter.textContent = 'Сохранить';
+    popupCloseFunc();
   });
+
 });
 
 popupAvatarEdit.setEventListeners();
