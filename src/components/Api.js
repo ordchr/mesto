@@ -20,18 +20,12 @@ export class Api {
     }
     return fetch(`${this._baseUrl}/${action}`, requestData).then(
         res => {
-          console.log(res.ok);
           if (res.ok) {
             return res.json();
           }
           return Promise.reject(`Ошибка: ${res.status}`);
         }
       );
-      // .then(
-      // data => {
-        // console.log(data);
-        // action(data);
-      // });
   }
 
   getUserInfo() {

@@ -181,10 +181,6 @@ const popupProfileEdit = new PopupWithForm('.popup_profile', formSubmitHandler);
 popupProfileEdit.setEventListeners();
 
 editButton.addEventListener('click', () => {
-  // userInfo.getUserInfo({
-    // inputSelectorFullName: '.popup__input_full-name',
-    // inputSelectorProfession: '.popup__input_profession',
-  // });
   popupFullNameValue.value   = userInfo.getUserInfo().userName;
   popupProfessionValue.value = userInfo.getUserInfo().userInfo;
   popupProfileEdit.open();
