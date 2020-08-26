@@ -10,7 +10,7 @@
     <img src="../images/logo.svg" class="header__logo" alt="Логотип Mesto Russia">
   </header>
   <section class="profile page__section">
-    <img class="profile__photo" src="../images/Jak-Iv-Kusto.jpg" alt="Аватар пользователя">
+    <button class="profile__photo"></button>
     <div class="profile__info">
       <div class="profile__title">
         <h1 class="profile__full-name">Жак-Ив Кусто</h1>
@@ -75,6 +75,17 @@
       <form class="popup__form popup__form-confirm" name="confirm" action="#" method="POST">
         <h4 class="popup__header popup__header_confirm">Вы уверены?</h4>
         <button class="popup__button-yes" type="submit">Да</button>
+      </form>
+      <button type="button" class="popup__button-close"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_closed popup_update-avatar">
+    <div class="popup-container popup__container">
+      <form class="popup__form popup__form-update-avatar" name="update-avatar" action="#" method="POST">
+        <h4 class="popup__header popup__header_confirm">Обновить аватар</h4>
+        <input id="popup-input-avatar-image-link" class="popup__input popup__input_update-avatar-link" name="popup__input_update-avatar-link" type="url" value="" placeholder="Ссылка на аватар" required>
+        <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
       <button type="button" class="popup__button-close"></button>
     </div>

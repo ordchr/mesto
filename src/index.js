@@ -17,6 +17,7 @@ const popupFormCardAdd = document.querySelector('.popup__form-card-add');
 const popupFormProfileEdit = document.querySelector('.popup__form-edit_profile');
 const popupFullNameValue = document.querySelector('.popup__input_full-name');
 const popupProfessionValue = document.querySelector('.popup__input_profession');
+const popupProfilePhoto = document.querySelector('.profile__photo');
 
 // Форма для добавления карточки
 const popupInputPlaceName = document.querySelector('.popup__input_place-name');
@@ -129,7 +130,7 @@ api.getUserInfo().then(({name, about, avatar}) => {
   const inputProfession = document.querySelector('.profile__profession');
   inputFullName.textContent = name;
   inputProfession.textContent = about;
-  document.querySelector('.profile__photo').src = avatar;
+  popupProfilePhoto.style.backgroundImage = `url(${avatar})`;
 });
 
 const formSubmitHandler = (inputValues) => {
@@ -149,6 +150,20 @@ editButton.addEventListener('click', () => {
   popupFullNameValue.value   = userInfo.getUserInfo().userName;
   popupProfessionValue.value = userInfo.getUserInfo().userInfo;
   popupProfileEdit.open();
+});
+
+const popupAvatarEdit = new PopupWithForm('.popup_update-avatar', (inputValues) => {
+  console.log(inputValues['popup__input_update-avatar-link']);
+  api.updateAvatar({avatar: inputValues['popup__input_update-avatar-link']})
+    .then((user) => {
+      console.log(user.avatar);
+      popupProfilePhoto.style.backgroundImage = `url(${user.avatar})`;
+  });
+});
+
+popupAvatarEdit.setEventListeners();
+popupProfilePhoto.addEventListener('click', () => {
+  popupAvatarEdit.open();
 });
 
 const popupAddCard = new PopupWithForm('.popup_add-card', formAddCardSubmitHandler);

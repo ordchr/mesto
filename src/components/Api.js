@@ -62,4 +62,8 @@ export class Api {
     return this._call('DELETE', `cards/likes/${cardId}`);
   }
 
+  updateAvatar(body) {
+    return this._call('PATCH', `users/me/avatar`, body);
+  }
+
 }
