@@ -124,11 +124,8 @@ Promise.all([
 ])
   .then(([userData, initialCards]) => {
     // Обработка данных пользователя
-    const {name, about, avatar, _id: myUserId} = userData;
-    const inputFullName = document.querySelector('.profile__full-name');
-    const inputProfession = document.querySelector('.profile__profession');
-    inputFullName.textContent = name;
-    inputProfession.textContent = about;
+    const {avatar, _id: myUserId} = userData;
+    userInfo.setUserInfo(userData);
     popupProfilePhoto.style.backgroundImage = `url(${avatar})`;
     // Отрисовка карточек
     section.renderAll(initialCards, myUserId);
@@ -179,7 +176,7 @@ const formSubmitHandler = (evt, popupCloseFunc, inputValues) => {
     about: inputValues.profession
   })
     .then(user => {
-      userInfo.setUserInfo({name: user.name, profession: user.about});
+      userInfo.setUserInfo(user);
     })
     .catch(err => {
       console.log(err);
