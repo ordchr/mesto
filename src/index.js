@@ -6,7 +6,6 @@ import { PopupWithImage } from './components/PopupWithImage.js';
 import { FormValidator } from './components/FormValidator.js';
 import { UserInfo } from './components/UserInfo.js';
 import { Api } from './components/Api.js';
-import { initialCards } from './initial-cards.js';
 import { apiSettings } from './constants.js';
 import { PopupWithConfirm } from './components/PopupWithConfirm.js';
 
@@ -52,15 +51,16 @@ const api = new Api({
 const popupWithConfirm = new PopupWithConfirm('.popup_confirm');
 popupWithConfirm.setEventListeners();
 
-const cardRenderer = (placeName, placeLink, likes, ownerId, cardId) => {
+const cardRenderer = (placeName, placeLink, likes, ownerId, cardId, myUserId) => {
   const card = new Card(
     {
       data: {
         placeName: placeName,
         placeLink: placeLink,
         likes: likes,
-        ownerId,
-        cardId,
+        ownerId: ownerId,
+        cardId: cardId,
+        myUserId: myUserId,
       },
       handleCardClick: () => {
         popupPreview.open({link: card.link, title: card.title});
@@ -113,54 +113,64 @@ const section = new Section(
   '.places'
 );
 
-api.getInitialCards()
-  .then((items) => {
-    section.renderAll(items);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-const formAddCardSubmitHandler = (evt, popupCloseFunc) => {
-  evt.submitter.textContent = 'Сохранение...';
-  api.addCard({name: popupInputPlaceName.value, link: popupInputImageLink.value})
-    .then(data => {
-      section.addItem(
-        cardRenderer(
-          data.name,
-          data.link,
-          data.likes,
-          data.owner._id,
-          data._id
-        )
-      );
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    .finally(_ => {
-      evt.submitter.textContent = 'Сохранить';
-      popupCloseFunc();
-    });
-};
-
-
 const userInfo = new UserInfo({
   userNameSelector: '.profile__full-name',
   userInfoSelector: '.profile__profession'
 });
 
-api.getUserInfo()
-  .then(({name, about, avatar}) => {
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards(),
+])
+  .then(([userData, initialCards]) => {
+    // Обработка данных пользователя
+    const {name, about, avatar, _id: myUserId} = userData;
     const inputFullName = document.querySelector('.profile__full-name');
     const inputProfession = document.querySelector('.profile__profession');
     inputFullName.textContent = name;
     inputProfession.textContent = about;
     popupProfilePhoto.style.backgroundImage = `url(${avatar})`;
+    // Отрисовка карточек
+    section.renderAll(initialCards, myUserId);
+
+    // Хэндлер для добавления новой карточки
+    const formAddCardSubmitHandler = (evt, popupCloseFunc) => {
+      evt.submitter.textContent = 'Сохранение...';
+      api.addCard({name: popupInputPlaceName.value, link: popupInputImageLink.value})
+        .then(data => {
+          section.addItem(
+            cardRenderer(
+              data.name,
+              data.link,
+              data.likes,
+              data.owner._id,
+              data._id,
+              myUserId,
+            )
+          );
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(_ => {
+          evt.submitter.textContent = 'Сохранить';
+          popupCloseFunc();
+        });
+    };
+
+    const popupAddCard = new PopupWithForm('.popup_add-card', formAddCardSubmitHandler);
+    popupAddCard.setEventListeners();
+
+    addCardButton.addEventListener('click', () => {
+      popupAddCard.open();
+    });
+
   })
-  .catch(err => {
+  .catch((err) => {
+    // попадаем сюда если один из промисов завершится ошибкой
     console.log(err);
   });
+
 
 const formSubmitHandler = (evt, popupCloseFunc, inputValues) => {
   evt.submitter.textContent = 'Сохранение...';
@@ -210,13 +220,6 @@ const popupAvatarEdit = new PopupWithForm('.popup_update-avatar', (evt, popupClo
 popupAvatarEdit.setEventListeners();
 popupProfilePhoto.addEventListener('click', () => {
   popupAvatarEdit.open();
-});
-
-const popupAddCard = new PopupWithForm('.popup_add-card', formAddCardSubmitHandler);
-popupAddCard.setEventListeners();
-
-addCardButton.addEventListener('click', () => {
-  popupAddCard.open();
 });
 
 

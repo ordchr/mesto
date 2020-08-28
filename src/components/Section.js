@@ -4,9 +4,9 @@ export class Section {
     this._renderer = renderer.bind(this);
   }
 
-  renderAll(items) {
+  renderAll(items, myUserId) {
     items.forEach((item) => {
-      const element = this._renderer( item.name, item.link, item.likes, item.owner._id, item._id );
+      const element = this._renderer( item.name, item.link, item.likes, item.owner._id, item._id, myUserId );
       this.addItem(element);
     });
 

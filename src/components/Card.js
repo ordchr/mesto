@@ -1,13 +1,12 @@
-import { apiSettings } from '../constants.js';
-
 export class Card {
   constructor({data, handleCardClick, handleDeleteIconClick, handleLikeClick}, cardSelector) {
-    const { placeName, placeLink, likes, ownerId, cardId} = data;
+    const { placeName, placeLink, likes, ownerId, cardId, myUserId} = data;
     this.title = placeName;
     this.link = placeLink;
     this.likes = likes;
     this._ownerId = ownerId;
     this.cardId = cardId;
+    this.myUserId = myUserId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick.bind(this);
     this._handleCardDelete = handleDeleteIconClick.bind(this);
@@ -27,7 +26,7 @@ export class Card {
     const cardImage = card.querySelector('.place__image');
     card.querySelector('.place__title-text').textContent=this.title;
     card.querySelector('.place__title-like-count').textContent=this.likes.length;
-    if (apiSettings.myId !== this._ownerId) {
+    if (this.myUserId !== this._ownerId) {
       card.querySelector('.place__image-del').classList.add('place__image-del_hidden');
     }
     if (this.likedMe()) {
@@ -54,9 +53,7 @@ export class Card {
   }
 
   likedMe() {
-    return this.likes.some((element) => {
-      return element._id === apiSettings.myId ? 1 : 0;
-    })
+    return this.likes.some(element => element._id === this.myUserId)
   }
 
   getCard() {
