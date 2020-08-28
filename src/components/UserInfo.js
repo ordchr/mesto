@@ -1,22 +1,20 @@
 export class UserInfo {
   constructor({userNameSelector, userInfoSelector}) {
-    this._userNameSelector = userNameSelector;
-    this._userInfoSelector = userInfoSelector;
-    this._userName = document.querySelector(userNameSelector);
-    this._userInfo = document.querySelector(userInfoSelector);
+    this.userName = document.querySelector(userNameSelector);
+    this.userInfo = document.querySelector(userInfoSelector);
 
   }
 
   getUserInfo() {
     return {
-      userName: this._userName.textContent,
-      userInfo: this._userInfo.textContent
+      userName: this.userName.textContent,
+      userInfo: this.userInfo.textContent
     };
   }
 
-  setUserInfo(inputValues) {
-    this._userName.textContent = inputValues.name;
-    this._userInfo.textContent = inputValues.profession;
+  setUserInfo({name, about}) {
+    this.userName.textContent = name;
+    this.userInfo.textContent = about;
   }
 
 }
